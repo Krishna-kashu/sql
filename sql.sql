@@ -656,10 +656,10 @@ select sum(catches) as total_catches from cricket_info;
 
 SELECT MAX(highest_score) as high_score from cricket_info;
 
-min:
+4) min:
 SELECT min(runs) as min_runs from cricket_info;
 
-avg:
+5) avg:
 SELECT avg(runs) as avg_runs from cricket_info;
 
 SELECT instr('SONAL VINOD KARMA', 'V');
@@ -685,4 +685,399 @@ SELECT min(Headers) as min_of_headers from FootBall_info;
 
 SELECT team,LTRIM(team) from cricket_info;
 SELECT country, LTRIM(country) from FootBall_info;
+
+27/03/25
+
+select * from football_info;
+
+Group By:
+
+SELECT count(player_name) as no_of_players, country from football_info Group by country;
+
+select count(goal) as no_of_goals, club from football_info
+group by cLuB;
+
+SELECT max(matches) as no_of_matches, country from football_info
+group by country;
+
+SELECT min(yellow_card) as min_cards, position from football_info
+group by position;
+
+select avg(matches) as avg_matches, country from football_info
+group by country;
+
+
+Having clause:
+
+SELECT max(matches) as no_of_matches, country from football_info
+group by country having no_of_matches > 500;
+
+DISTINCT:
+
+SELECT DISTINCT(position) from football_info;
+
+/*ORDER*/
+SELECT DISTINCT FROM WHERE GROUP BY HAVING;
+
+select * from football_info;
+
+select country, count(matches) as no_of_matches FROM football_info group by country having no_of_matches>1;
+select country, count(matches) as no_of_matches FROM football_info group by country having no_of_matches>1;
+SELECT player_name,country, max(red_card) as red from football_info 
+where country in ('Argentina','brazil','france') 
+group by country having red>=2;
+
+SELECT player_name,country, count(red_card) as red from football_info 
+where country in ('Argentina','brazil','france') 
+group by country having red>=2;
+
+SELECT DISTINCT(goal),player_name, red_card from football_info;
+
+
+/* 27/03/25 
+1) CREATE 2 TABLES(bmtc_details, tourist_info) with 10 columns.
+2) Insert 20 data for each table.
+3) Perform Aggregate Functions.
+4) Perform Group by and having . */
+
+
+Create table bmtc_details( id int, depot_name varchar(30), depot_location varchar(30), 
+depot_code varchar(5), established_year int, total_vehicles int, maintenance_cost int, 
+fuel_consumption int, daily_operations int, Route_Coverage int);
+
+desc bmtc_details;
+
+insert into bmtc_details values (1, 'Shanthinagar Depot', 'Shanthinagar', 'D001', 1995, 250, 500000, 10000, 200, 500);
+INSERT INTO bmtc_details values (2, 'Majestic Depot', 'Majestic', 'D002', 1985, 300, 650000, 12000, 250, 600);
+SELECT * FROM bmtc_details;
+
+INSERT into bmtc_details values (3, 'Kengeri Depot', 'Kengeri', 'D003', 2000, 220, 475000, 9500, 180, 480);
+INSERT into bmtc_details values (4, 'Yeshwanthpur Depot', 'Yeshwanthpur', 'D004', 1992, 275, 580000, 11000, 210, 550);
+INSERT into bmtc_details values (5,  'Banashankari Depot', 'Banashankari', 'D005', 1998, 260, 520000, 10500, 190, 510);
+INSERT into bmtc_details values (6,  'Jayanagar Depot', 'Jayanagar', 'D006', 1990, 240, 490000, 9800, 185, 490);
+INSERT into bmtc_details values (7, 'Indiranagar Depot', 'Indiranagar', 'D007', 1996, 255, 530000, 10700, 195, 520);
+INSERT into bmtc_details values (8, 'Koramangala Depot', 'Koramangala', 'D008', 1994, 270, 560000, 11200, 205, 540);
+INSERT into bmtc_details values (9,  'Rajajinagar Depot', 'Rajajinagar', 'D009', 1988, 285,	590000, 11500, 220, 570);
+INSERT into bmtc_details values (10,  'HSR Layout Depot', 'HSR Layout',	'D010',	2005, 230, 460000, 9300, 175, 470);
+INSERT into bmtc_details values (11, 'Whitefield Depot', 'Whitefield', 'D011', 2010, 200, 430000, 8700, 160, 450);
+INSERT into bmtc_details values (12, 'Marathahalli Depot', 'Marathahalli', 'D012', 2003, 215, 450000, 9100, 170, 460);
+INSERT into bmtc_details values (13, 'Electronic City Depot', 'Electronic City', 'D013', 2012, 180, 390000, 8200, 150, 430);
+INSERT into bmtc_details values (14, 'Hebbal Depot', 'Hebbal', 'D014', 1997, 250, 500000, 10000, 200, 500);
+INSERT into bmtc_details values (15, 'Mysore Road Depot', 'Mysore Road', 'D015', 1982, 290, 600000, 12500, 230, 580);
+INSERT into bmtc_details values (16, 'Kalyan Nagar Depot', 'Kalyan Nagar', 'D016', 2008, 195, 410000, 8500, 155, 440);
+INSERT into bmtc_details values (17, 'Malleswaram Depot', 'Malleswaram', 'D017', 1999, 245, 495000, 9700,	185, 485);
+INSERT into bmtc_details values (18, 'Vijayanagar Depot', 'Vijayanagar', 'D018', 1993, 265, 540000, 10800, 195, 525);
+INSERT into bmtc_details values (19, 'Nagawara Depot', 'Nagawara', 'D019', 2006, 225, 470000, 9400, 170, 475);
+INSERT into bmtc_details values (20, 'Peenya Depot', 'Peenya', 'D020', 2001, 235, 480000, 9600, 180, 490);
+
+
+Create table tourist_info( id int, tourist_spot varchar(30), location varchar(30), 
+district varchar(30), spot_code varchar(10), attraction_type varchar(30),  entry_fee decimal(10,2), 
+opening_hours time, closing_hours time, best_season varchar(30));
+desc tourist_info;
+alter table tourist_info modify opening_hours varchar(10);
+alter table tourist_info modify closing_hours varchar(10);
+
+INSERT into tourist_info values(1, 'Mysore Palace', 'Mysore', 'Mysore', 'T001', 'Heritage', 100, '10:00AM', '5:30PM', 'Oct-Feb');
+
+select * from tourist_info;
+truncate tourist_info;
+INSERT into tourist_info values(2, 'Hampi', 'Hampi', 'Bellary', 'T002', 'Historical', 40, '6:00 AM', '6:00 PM', 'Nov-Feb');
+INSERT into tourist_info values(3, 'Coorg', 'Madikeri', 'Kodagu', 'T003', 'Hill Station', 0, 'Open 24x7', 'Open 24x7', 'Oct-Apr');
+INSERT into tourist_info values(4, 'Gokarna Beach', 'Gokarna', 'Uttara Kannada', 'T004', 'Beach', 0, 'Open 24x7', 'Open 24x7', 'Oct-Mar');
+INSERT into tourist_info values(5, 'Jog Falls', 'Sagara', 'Shimoga', 'T005', 'Waterfall', 0, '6:00 AM', '6:00 PM', 'July-Oct');
+INSERT into tourist_info values(6, 'Belur Temple', 'Belur', 'Hassan', 'T006', 'Heritage', 50, '7:30 AM', '6:00 PM', 'Oct-Feb');
+INSERT into tourist_info values(7, 'Bandipur National Park', 'Bandipur', 'Chamarajanagar', 'T007', 'Wildlife', 250, '6:00 AM', '6:00 PM', 'Nov-May');
+INSERT into tourist_info values(8, 'Badami Caves', 'Badami', 'Bagalkot', 'T008', 'Historical', 40, '9:00 AM', '5:30 PM', 'Sep-Feb');
+INSERT into tourist_info values(9, 'Nandi Hills', 'Chikkaballapur', 'Bangalore Rural', 'T009', 'Hill Station', 15, '6:00 AM', '6:30 PM', 'Aug-Feb');
+INSERT into tourist_info values(10, 'Lalbagh', 'Bangalore', 'Bangalore', 'T010', 'Botanical Garden', 30, '6:00 AM', '7:00 PM', 'Year-round');
+
+INSERT into tourist_info values(11, 'Shivanasamudra Falls', 'Kollegal', 'Chamarajanagar', 'T011', 'Waterfall', 30, '7:00 AM', '6:00 PM', 'July-Oct');
+INSERT into tourist_info values(12, 'Biligiriranga Hills', 'Yelandur', 'Chamarajanagar', 'T012', 'Wildlife', 50, '6:00 AM', '5:30 PM', 'Oct-Apr');
+INSERT into tourist_info values(13, 'Melukote', 'Melukote', 'Mandya', 'T013', 'Religious', 20, '6:00 AM', '7:30 PM', 'Year-round');
+INSERT into tourist_info values(14, 'Kodachadri', 'Nittur', 'Shivamogga', 'T014', 'Trekking', 50, '6:00 AM', '6:00 PM', 'Sep-Feb');
+INSERT into tourist_info values(15, 'Talakadu', 'Tirumakudal Narsipur', 'Mysore', 'T015', 'Historical', 30, '6:00 AM', '6:30 PM', 'Sep-Mar');
+INSERT into tourist_info values(16, 'St. Mary’s Island', 'Malpe', 'Udupi', 'T016', 'Island', 400, '9:00 AM', '5:30 PM', 'Nov-Apr');
+INSERT into tourist_info values(17, 'Kunti Betta', 'Pandavapura', 'Mandya', 'T017', 'Trekking', 15, '4:30 AM', '6:30 PM', 'Oct-Apr');
+INSERT into tourist_info values(18, 'Kabini Backwaters', 'H D Kote', 'Mysore', 'T018', 'Nature', 200, '6:00 AM', '6:30 PM', 'Nov-May');
+INSERT into tourist_info values(19, 'Malpe Beach', 'Malpe', 'Udupi', 'T019', 'Beach', 0, 'Open 24x7', 'Open 24x7', 'Oct-May');
+INSERT into tourist_info values(20, 'Agumbe', 'Agumbe', 'Shivamogga', 'T020', 'Hill Station', 0, 'Open 24x7', 'Open 24x7', 'Aug-Jan');
+
+
+SELECT * FROM bmtc_details;
+SELECT * FROM tourist_info;
+
+select count(*) as depot_name from bmtc_details;
+select count(id) from bmtc_details;
+select count(*) from tourist_info;
+select count(location) from tourist_info;
+
+SELECT * FROM tourist_info;
+select sum(total_vehicles) as total_vehicles from bmtc_details;
+select sum(entry_fee) from tourist_info;
+
+SELECT MAX(entry_fee) as max_fee from tourist_info;
+SELECT min(entry_fee) as minimum from tourist_info;
+
+SELECT MAX(daily_operations) as max_fee from bmtc_details;
+SELECT min(total_vehicles) as minimum from bmtc_details;
+
+SELECT avg(daily_operations) as average from bmtc_details;
+
+select tourist_spot, district, count(location) as loc FROM tourist_info 
+group by district having loc>1;
+
+SELECT * FROM bmtc_details;
+
+select depot_name, count(daily_operations) as op FROM bmtc_details 
+group by established_year having op>0;
+SELECT depot_code, max(maintenance_cost) as max_maintainance from bmtc_details where total_vehicles>200 and fuel_consumption>150;
+
+SELECT depot_name,depot_location, avg(maintenance_cost) as cost_avg from bmtc_details 
+where depot_location in ('Majestic','Yeshwanthpur','Whitefield','Jayanagar') 
+group by depot_location having cost_avg>=2;
+
+/*
+28/03/2025
+
+1. Create 3 tables with 10 columns.
+1. pkl_info
+2. movies_info
+3. cosmetics_info)
+2. Apply not null and unique for any 5 columns.
+3. Insert 20 data for each table
+4. After insert add new column using alter and update all the rows for new column for 2 tables
+5. aggregate functions for all tables
+6. Group by and having.
+
+*/
+
+CREATE table pkl_info(ID int  not null unique, team_name varchar(30) not null unique, 
+captain varchar(30) not null unique, coach varchar(30) not null unique, 
+home_city varchar(30), titles_won int, star_player varchar(30) not null unique, 
+founded_year year, home_ground varchar(30), sponsor varchar(30) not null unique); 
+
+desc pkl_info;
+alter table pkl_info modify titles_won int;
+
+
+alter table pkl_info modify home_ground varchar(30);
+alter table pkl_info modify sponsor varchar(30);
+alter table pkl_info modify coach varchar(30);
+alter table pkl_info modify star_player varchar(30);
+DROP TABLE pkl_info;
+
+INSERT INTO pkl_info values(1, 'Patna Pirates', 'Pardeep Narwal', 'Ram Mehar Singh', 'Patna', 3, 'Monu Goyat', 2014, 'Patliputra Sports Complex', 'Force Motors'),
+(2, 'Bengaluru Bulls', 'Pawan Sehrawat', 'Randhir Singh', 'Bengaluru', 1, 'Bharat Hooda', 2014, 'Sree Kanteerava Stadium', 'Cycle Pure Agarbatti'),
+(3, 'U Mumba', 'Fazel Atrachali', 'Gholamreza Mazandarani', 'Mumbai', 1, 'Surinder Singh', 2014, 'NSCI Dome', 'Indiabulls'),
+(4, 'Jaipur Pink Panthers', 'Deepak Hooda', 'Sanjeev Baliyan', 'Jaipur', 2, 'Arjun Deshwal', 2014, 'Sawai Mansingh Stadium', 'JK Super Cement'),
+(5, 'Tamil Thalaivas', 'Ajay Thakur', 'J. Udaya Kumar', 'Chennai', 0, 'Sagar Rathee', 2017, 'Jawaharlal Nehru Stadium', 'Levista Coffee'),
+(6, 'Bengal Warriors', 'Maninder Singh', 'BC Ramesh', 'Kolkata', 1, 'Nabibakhsh', 2014, 'Netaji Indoor Stadium', 'SRMB Steel'),
+(7, 'Dabang Delhi', 'Naveen Kumar', 'Krishan Kumar Hooda', 'Delhi', 1, 'Joginder Narwal', 2014, 'Thyagaraj Indoor Stadium', 'JK Tyre'),
+(8, 'Nagpur Ninjas', 'Rajiv Deshpande', 'Sanjay Reddy', 'Nagpur', 0, 'Manoj Tiwari', 2023, 'Nagpur Indoor Stadium', 'Wipro'),
+(9, 'Haryana Steelers', 'Jaideep Dahiya', 'Manpreet Singh', 'Haryana', 0, 'Meetu Sharma', 2017, 'Tau Devi Lal Stadium', 'JSW Group'),
+(10, 'Varanasi Warriors', 'Ramesh Gupta', 'Yogesh Kumar', 'Varanasi', 0, 'Sudhir Verma', 2023, 'Varanasi Stadium', 'Sony'),
+(11, 'Telugu Titans', 'Siddharth Desai', 'Jagdish Kumble', 'Hyderabad', 0, 'Rajnish Dalal', 2014, 'Gachibowli Indoor Stadium', 'Greenko'),
+(12, 'Delhi Tigers', 'Aman Yadav', 'Praveen Kumar', 'Delhi', 0, 'Vishal Bhardwaj', 2023, 'Thyagaraj Indoor Stadium', 'Reliance Jio'),
+(13, 'Mysuru Mavericks', 'Rohit Sharma', 'Anand Murthy', 'Mysuru', 0, 'Naveen Shetty', 2023, 'Mysuru Sports Complex', 'Tata Motors'),								
+(14, 'Kochi Kings', 'Rohit Raj', 'Dileep Nair', 'Kochi', 0, 'Akshay Sharma', 2023, 'Kochi Indoor Stadium', 'Kerala Blasters'),								
+(15, 'Ranchi Raiders', 'Pranay Sharma', 'Gaurav Singh', 'Ranchi', 0, 'Vishal Patnaik', 2023, 'Ranchi Sports Arena', 'Infosys'),								
+(16, 'Bengal Strikers', 'Ankit Rana', 'Surjeet Singh', 'Kolkata', 0, 'Ravi Kumar', 2022, 'Netaji Indoor Stadium', 'Raymonds'),
+(17, 'Punjab Warriors', 'Rahul Kumar', 'Manjit Singh', 'Chandigarh', 0, 'Sanjay Kumar', 2023, 'Punjab Indoor Stadium', 'Airtel'),
+(18, 'Chandigarh Royals', 'Himanshu Yadav', 'Prakash Sharma', 'Chandigarh', 0, 'Vaibhav Chaturvedi', 2023, 'Punjab Indoor Stadium', 'Samsung'),		
+(19, 'UP Yoddha', 'Nitesh Kumar', 'Jasveer Singh', 'Lucknow', 0, 'Sumit Sangwan', 2017, 'Babu Banarasi Das Indoor', 'GMR Group'),
+(20, 'Goa Gladiators', 'Vishnu Menon', 'Sunil Dutt', 'Goa', 0, 'Neeraj Joshi', 2023, 'Goa Arena', 'Kingfisher');								
+
+SELECt * from pkl_info;
+ALTER table pkl_info add column owner_name varchar(30);
+
+UPDATE pkl_info SET owner_name = 'Rajesh V Shah' WHERE team_name = 'Patna Pirates';
+UPDATE pkl_info SET owner_name = 'Kosmik Global Media' WHERE team_name = 'Bengaluru Bulls';
+UPDATE pkl_info SET owner_name = 'Unilazer Ventures' WHERE team_name = 'U Mumba';
+UPDATE pkl_info SET owner_name = 'Abhishek Bachchan' WHERE team_name = 'Jaipur Pink Panthers';
+UPDATE pkl_info SET owner_name = 'India Cements' WHERE team_name = 'Tamil Thalaivas';
+UPDATE pkl_info SET owner_name = 'Future Group' WHERE team_name = 'Bengal Warriors';
+UPDATE pkl_info SET owner_name = 'JK Tyre' WHERE team_name = 'Dabang Delhi';
+UPDATE pkl_info SET owner_name = 'Wipro' WHERE team_name = 'Nagpur Ninjas';
+UPDATE pkl_info SET owner_name = 'JSW Group' WHERE team_name = 'Haryana Steelers';
+UPDATE pkl_info SET owner_name = 'Sony' WHERE team_name = 'Varanasi Warriors';
+UPDATE pkl_info SET owner_name = 'Greenko' WHERE team_name = 'Telugu Titans';
+UPDATE pkl_info SET owner_name = 'Reliance Jio' WHERE team_name = 'Delhi Tigers';
+UPDATE pkl_info SET owner_name = 'Tata Motors' WHERE team_name = 'Mysuru Mavericks';
+UPDATE pkl_info SET owner_name = 'Kerala Blasters' WHERE team_name = 'Kochi Kings';
+UPDATE pkl_info SET owner_name = 'Infosys' WHERE team_name = 'Ranchi Raiders';
+UPDATE pkl_info SET owner_name = 'Raymonds' WHERE team_name = 'Bengal Strikers';
+UPDATE pkl_info SET owner_name = 'Airtel' WHERE team_name = 'Punjab Warriors';
+UPDATE pkl_info SET owner_name = 'Samsung' WHERE team_name = 'Chandigarh Royals';
+UPDATE pkl_info SET owner_name = 'GMR Group' WHERE team_name = 'UP Yoddha';
+UPDATE pkl_info SET owner_name = 'Kingfisher' WHERE team_name = 'Goa Gladiators';
+
+SELECT COUNT(*) AS total_teams FROM pkl_info;
+SELECT AVG(titles_won) AS average_titles FROM pkl_info;
+SELECT MAX(titles_won) AS max_titles FROM pkl_info;
+SELECT MIN(titles_won) AS min_titles FROM pkl_info;
+SELECT SUM(titles_won) AS total_titles_won FROM pkl_info;
+SELECT home_city, COUNT(*) AS total_teams FROM pkl_info GROUP BY home_city;
+SELECT home_city, SUM(titles_won) AS total_titles FROM pkl_info GROUP BY home_city;
+SELECT owner_name, COUNT(*) AS total_teams_owned FROM pkl_info GROUP BY owner_name;
+SELECT home_city, SUM(titles_won) AS total_titles FROM pkl_info GROUP BY home_city HAVING total_titles > 2;
+SELECT sponsor, COUNT(*) AS sponsored_teams FROM pkl_info GROUP BY sponsor HAVING COUNT(*) > 1;
+
+***************************************
+
+CREATE TABLE cosmetics_info ( ID INT not null unique, product_Name VARCHAR(30) not null unique, brand VARCHAR(30) not null unique,
+    product_type VARCHAR(30), price INT, rating DECIMAL(2,1), ingredients varchar(40) not null unique, 
+    product_usage VARCHAR(30) not null unique, Availability VARCHAR(30));
+
+desc cosmetics_info;
+alter table cosmetics_info modify product_Name varchar(40);
+INSERT INTO cosmetics_info (ID, product_Name, brand, product_type, price, rating, ingredients, product_usage, availability) VALUES
+(1, 'Kumkumadi Oil', 'Kama Ayurveda', 'Face Serum', 1250, 4.7, 'Saffron, Turmeric, Almond Oil', 'Skin Glow', 'Online'),
+(2, 'Mysore Sandal Soap', 'KSDL', 'Bath Soap', 70, 4.8, 'Sandalwood Oil', 'Daily Use', 'Stores & Online'),
+(3, 'Biotique Bio Honey Gel', 'Biotique', 'Face Wash', 180, 4.6, 'Honey, Neem, Turmeric', 'Cleansing', 'Online'),
+(4, 'Himalaya Neem Face Wash', 'Himalaya', 'Face Wash', 200, 4.5, 'Neem, Turmeric', 'Acne Control', 'Stores & Online'),
+(5, 'Forest Essentials Soundarya Cream', 'Forest Essentials', 'Face Cream', 2500, 4.8, 'Gold Bhasma, Saffron', 'Anti-aging', 'Online'),
+(6, 'Indulekha Hair Oil', 'Indulekha', 'Hair Oil', 432, 4.7, 'Bringha, Aloe Vera', 'Hair Growth', 'Stores & Online'),
+(7, 'Ayur Herbal Rose Water', 'Ayur', 'Toner', 65, 4.3, 'Rose Extracts', 'Skin Refreshing', 'Stores & Online'),
+(8, 'Mamaearth Ubtan Face Pack', 'Mamaearth', 'Face Pack', 499, 4.6, 'Turmeric, Saffron', 'Brightening', 'Online'),
+(9, 'Lotus Herbals Safe Sun', 'Lotus', 'Sunscreen', 350, 4.4, 'Aloe Vera, Chamomile', 'Sun Protection', 'Stores & Online'),
+(10, 'Nivea Soft Moisturizer', 'Nivea', 'Moisturizer', 299, 4.5, 'Jojoba Oil, Vitamin E', 'Hydration', 'Stores & Online'),
+(11, 'Lacto Calamine Oil Control', 'Lacto Calamine', 'Face Lotion', 220, 4.2, 'Kaolin Clay, Zinc Oxide', 'Oil Control', 'Stores & Online'),
+(12, 'VLCC Gold Facial Kit', 'VLCC', 'Facial Kit', 500, 4.5, 'Gold Dust, Turmeric', 'Facial Glow', 'Online'),
+(13, 'Patanjali Aloe Vera Gel', 'Patanjali', 'Gel', 120, 4.3, 'Aloe Vera, Vitamin E', 'Skin & Hair Care', 'Stores & Online'),
+(14, 'Lakme 9 to 5 Lipstick', 'Lakme', 'Lipstick', 500, 4.6, 'Shea Butter, Vitamin E', 'Lip Color', 'Stores & Online'),
+(15, 'Maybelline Colossal Kajal', 'Maybelline', 'Eye Kajal', 200, 4.7, 'Aloe Vera, Vitamin C', 'Eye Definition', 'Stores & Online'),
+(16, 'Elle 18 Nail Polish', 'Elle 18', 'Nail Polish', 75, 4.2, 'Vitamin E', 'Nail Color', 'Stores & Online'),
+(17, 'Coloressence HD Foundation', 'Coloressence', 'Foundation', 450, 4.3, 'Aloe Vera, SPF', 'Base Makeup', 'Online'),
+(18, 'Sugar Smudge Me Not Lipstick', 'Sugar Cosmetics', 'Lipstick', 599, 4.6, 'Jojoba Oil, Shea Butter', 'Matte Lips', 'Online'),
+(19, 'Faces Canada Ultime Pro Eyeliner', 'Faces Canada', 'Eyeliner', 549, 4.5, 'Vitamin E, Castor Oil', 'Eye Makeup', 'Stores & Online'),
+(20, 'Wow Onion Black Seed Oil Shampoo', 'Wow', 'Shampoo', 499, 4.6, 'Onion Oil, Black Seed Oil', 'Hair Strength', 'Online');
+select * from cosmetics_info;
+
+alter table cosmetics_info add Stock_Status varchar(30);
+UPDATE cosmetics_info SET Stock_Status = 'In Stock' WHERE ID IN (1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+UPDATE cosmetics_info SET Stock_Status = 'Out of Stock' WHERE ID IN (11, 12, 13, 14, 15, 16, 17, 18, 19, 20);
+UPDATE cosmetics_info SET Stock_Status = 'Limited Stock' WHERE ID IN (21, 22, 23, 24, 25, 26, 27, 28, 29, 30);
+UPDATE cosmetics_info SET Stock_Status = 'In Stock' WHERE ID = 1;
+UPDATE cosmetics_info SET Stock_Status = 'Out of Stock' WHERE ID = 11;
+UPDATE cosmetics_info SET Stock_Status = 'Limited Stock' WHERE ID in (4, 9);
+
+
+SELECT COUNT(*) FROM cosmetics_info;
+SELECT AVG(price) FROM cosmetics_info;
+SELECT MIN(price) FROM cosmetics_info;
+SELECT MAX(price) FROM cosmetics_info;
+SELECT SUM(price) FROM cosmetics_info;
+
+SELECT COUNT(DISTINCT brand) FROM cosmetics_info;
+SELECT product_type, COUNT(*) FROM cosmetics_info GROUP BY product_type;
+SELECT product_type, AVG(rating) FROM cosmetics_info GROUP BY product_type;
+SELECT brand, SUM(price) FROM cosmetics_info GROUP BY brand;
+
+SELECT availability, COUNT(*) FROM cosmetics_info GROUP BY availability;
+SELECT product_type, COUNT(*) FROM cosmetics_info GROUP BY product_type HAVING COUNT(*) > 1;
+
+SELECT product_type, MIN(price) FROM cosmetics_info GROUP BY product_type;
+SELECT product_type, MAX(price) FROM cosmetics_info GROUP BY product_type;
+
+SELECT availability, AVG(rating) FROM cosmetics_info GROUP BY availability;
+SELECT brand, MAX(rating) FROM cosmetics_info GROUP BY brand;
+
+SELECT product_usage, COUNT(*) FROM cosmetics_info GROUP BY product_usage;
+SELECT stock_status, COUNT(*) FROM cosmetics_info GROUP BY stock_status;
+
+SELECT brand, SUM(price) from cosmetics_info GROUP BY brand HAVING SUM(price) > 1000; 
+SELECT product_type, AVG(price) FROM cosmetics_info GROUP BY product_type HAVING AVG(price) > 300; 
+SELECT availability, COUNT(*) from cosmetics_info GROUP BY availability HAVING COUNT(*) > 5;
+SELECT product_type, COUNT(*), AVG(price) FROM cosmetics_info GROUP BY product_type HAVING AVG(price) > 300;
+SELECT brand, MAX(price) from cosmetics_info GROUP BY brand having MAX(price) > 500;
+SELECT product_usage, COUNT(*), MIN(price) FROM cosmetics_info GROUP BY product_usage HAVING COUNT(*) > 1;
+SELECT stock_status, avg(price), COUNT(*) FROM cosmetics_info group by stock_status HAVING COUNT(*) > 2;
+SELECT brand, MAX(rating) from cosmetics_info GROUP BY brand HAVING MAX(rating) > 4.5;
+SELECT product_type, AVG(rating) FROM cosmetics_info GROUP BY product_type HAVING AVG(rating);
+SELECT product_type, AVG(rating) FROM cosmetics_info GROUP BY product_type HAVING AVG(rating) BETWEEN 4.5 and 4.7;
+SELECT brand, COUNT(*) FROM cosmetics_info WHERE stock_status = 'In Stock' GROUP BY brand HAVING COUNT(*) > 2;
+
+
+CREATE TABLE movies_info ( movie_id int not null unique, movie_name VARCHAR(40) not null unique,
+    lead_actor VARCHAR(50), lead_actress VARCHAR(50),
+    director VARCHAR(50) not null unique, release_Year INT not null , genre VARCHAR(30), IMDB_rating DECIMAL(2,1),
+    box_office_cr INT not null unique, production_house VARCHAR(50));
+
+INSERT INTO movies_info (movie_id, movie_name, lead_actor, lead_actress, director, release_year, genre, IMDB_rating, box_office_cr, production_house) VALUES
+(1,'KGF Chapter 1', 'Yash', 'Srinidhi Shetty', 'Prashanth Neel', 2018, 'Action', 8.2, 250, 'Hombale Films'),
+(2,'Kantara', 'Rishab Shetty', 'Sapthami Gowda', 'Rishab Shetty', 2022, 'Thriller', 8.3, 400, 'Hombale Films'),
+(3, 'Chowka', 'Prem Kumar', 'Priyamani', 'Tarun Sudhir', 2017, 'Drama', 8.1, 34, 'Tarun Talkies'),
+(4, 'Mungaru Male', 'Ganesh', 'Pooja Gandhi', 'Yogaraj Bhat', 2006, 'Love', 8.1, 50, 'E.K. Entertainers'),
+(5, 'Lucia', 'Sathish Ninasam', 'Sruthi Hariharan', 'Pawan Kumar', 2013, 'Psychological', 8.3, 15, 'Pawan Kumar Films'),
+(6, 'Avane Srimannarayana', 'Rakshit Shetty', 'Shanvi Srivastava', 'Sachin Ravi', 2019, 'Adventure', 7.7, 90, 'Pushkar Films'),
+(7, 'Googly', 'Yash', 'Kriti Kharbanda', 'Pawan Wadeyar', 2013, 'Love', 7.4, 40, 'Jayanna Films'),
+(8, 'Bell Bottom', 'Rishab Shetty', 'Hariprriya', 'Jayatheertha', 2019, 'Comedy', 8.0, 30, 'Santhosh Films'),
+(9, 'Tagaru', 'Shivarajkumar', 'Manvitha Harish', 'Duniya Soori', 2018, 'Action', 8.0, 70, 'K.P. Srikanth'),
+(10, 'Super', 'Upendra', 'Nayantara', 'Upendra', 2010, 'Sci-Fi', 8.2, 55, 'Rockline Enter.'),
+(11, 'James', 'Puneeth Rajkumar', 'Priya Anand', 'Chethan Kumar', 2022, 'Action', 8.1, 140, 'Kishore Prod.'),
+(12, 'Raajakumara', 'Puneeth Rajkumar', 'Priya Anand', 'Santhosh Ananddram', 2017, 'Family', 8.3, 75, 'Hombale Films'),
+(13, 'Roberrt', 'Darshan', 'Asha Bhat', 'Tharun Sudhir', 2021, 'Action', 7.0, 100, 'Umapathy Films'),
+(14, 'RangiTaranga', 'Nirup Bhandari', 'Avantika Shetty', 'Anup Bhandari', 2015, 'Mystery', 8.3, 25, 'Shree Devi Enter.'),
+(15, 'Bhajarangi', 'Shivarajkumar', 'Aindrita Ray', 'Harsha', 2013, 'Fantasy', 7.5, 60, 'Jayanna Films'),
+(16, 'Naanu Avanalla...', 'Anu Prabhakar', 'Sanchari Vijay', 'B.S. Lingadevaru', 2015, 'Drama', 8.6, 10, 'Apthamitra Films'),
+(17, 'Chamak', 'Ganesh', 'Rashmika Mandanna', 'Suni', 2017, 'Comedy', 7.6, 33, 'Crystal Park'),
+(18, '777 Charlie', 'Rakshit Shetty', 'Sangeetha Sringeri', 'Kiranraj K.', 2022, 'Adventure', 9.0, 200, 'Paramvah Studios'),
+(19, 'Kotigobba 2', 'Sudeep', 'Nithya Menen', 'K.S. Ravikumar', 2016, 'Action', 6.9, 85, 'Rockline Enter.'),
+(20, 'Jogi', 'Shivarajkumar', 'Jennifer Kotwal', 'Prem', 2005, 'Action', 7.9, 45, 'Ramu Films'),
+(21, 'Love Mocktail', 'Darling Krishna', 'Milana Nagaraj', 'Darling Krishna', 2020, 'Romance', 8.3, 35, 'Krishna Talkies');
+
+SELECT * from movies_info;
+
+ALTER TABLE movies_info ADD COLUMN language VARCHAR(20);
+UPDATE movies_info SET language = 'Kannada';
+ALTER TABLE movies_info ADD COLUMN movie_code VARCHAR(10);
+UPDATE movies_info SET movie_code = "MV001" where movie_id=1;
+UPDATE movies_info SET movie_code = "MV002" where movie_id=2;
+UPDATE movies_info SET movie_code = "MV003" where movie_id=3;
+UPDATE movies_info SET movie_code = "MV004" where movie_id=4;
+UPDATE movies_info SET movie_code = "MV005" where movie_id=5;
+UPDATE movies_info SET movie_code = "MV006" where movie_id=6;
+UPDATE movies_info SET movie_code = "MV007" where movie_id=7;
+UPDATE movies_info SET movie_code = "MV008" where movie_id=8;
+UPDATE movies_info SET movie_code = "MV009" where movie_id=9;
+UPDATE movies_info SET movie_code = "MV0010" where movie_id=10;
+UPDATE movies_info SET movie_code = "MV0011" where movie_id=11;
+UPDATE movies_info SET movie_code = "MV0012" where movie_id=12;
+UPDATE movies_info SET movie_code = "MV0013" where movie_id=13;
+UPDATE movies_info SET movie_code = "MV0014" where movie_id=14;
+UPDATE movies_info SET movie_code = "MV0015" where movie_id=15;
+UPDATE movies_info SET movie_code = "MV0016" where movie_id=16;
+UPDATE movies_info SET movie_code = "MV0017" where movie_id=17;
+UPDATE movies_info SET movie_code = "MV0018" where movie_id=18;
+UPDATE movies_info SET movie_code = "MV0019" where movie_id=19;
+UPDATE movies_info SET movie_code = "MV0020" where movie_id=20;
+UPDATE movies_info SET movie_code = "MV0021" where movie_id=21;
+
+SELECT * FROM movies_info;
+SELECT COUNT(*) FROM movies_info;
+SELECT AVG(IMDB_rating) FROM movies_info;
+SELECT MIN(box_office_cr) FROM movies_info; 
+SELECT MAX(box_office_cr) FROM movies_info;
+SELECT SUM(box_office_cr) FROM movies_info;
+SELECT COUNT(DISTINCT genre) FROM movies_info;
+SELECT genre, COUNT(*) FROM movies_info GROUP BY genre;
+SELECT genre, AVG(IMDB_rating) FROM movies_info GROUP BY genre;
+SELECT production_house, SUM(box_office_cr) FROM movies_info GROUP BY production_house;
+SELECT release_year, COUNT(*) FROM movies_info GROUP BY release_year;
+SELECT genre, COUNT(*) FROM movies_info GROUP BY genre HAVING COUNT(*) > 1;
+
+SELECT director, MIN(IMDB_rating) FROM movies_info GROUP BY director;
+SELECT director, MAX(IMDB_rating) FROM movies_info GROUP BY director;
+
+SELECT production_house, AVG(IMDB_rating) FROM movies_info GROUP BY production_house;
+SELECT lead_actor, MAX(box_office_cr) FROM movies_info GROUP BY lead_actor;
+SELECT genre, COUNT(*) FROM movies_info GROUP BY genre HAVING COUNT(*) > 3;
+SELECT language, COUNT(*) FROM movies_info GROUP BY language;
+SELECT release_year, COUNT(*) FROM movies_info GROUP BY release_year HAVING COUNT(*) > 2;
+SELECT production_house, COUNT(*) FROM movies_info GROUP BY production_house HAVING COUNT(*) > 1;
+SELECT genre, AVG(box_office_cr) FROM movies_info GROUP BY genre HAVING AVG(box_office_cr) > 50;
+SELECT genre, COUNT(*), AVG(IMDB_rating) FROM movies_info GROUP BY genre HAVING AVG(IMDB_rating) > 8;
+SELECT director, MAX(IMDB_rating) FROM movies_info GROUP BY director HAVING MAX(IMDB_rating) > 8.5;
+SELECT lead_actor, COUNT(*), SUM(box_office_cr) FROM movies_info GROUP BY lead_actor HAVING COUNT(*) > 2;
 
