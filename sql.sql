@@ -837,6 +837,43 @@ SELECT depot_name,depot_location, avg(maintenance_cost) as cost_avg from bmtc_de
 where depot_location in ('Majestic','Yeshwanthpur','Whitefield','Jayanagar') 
 group by depot_location having cost_avg>=2;
 
+
+Constraints:
+1) Not Null:
+
+CREATE TABLE movies_info(id int not null, movie_name
+varchar(20) not null, movie_language varchar(20),
+budget bigint, rating decimal(3,1));
+
+select * from movies_info;
+desc movies_info;
+
+
+insert into movies_info values
+(1,'max','Kannada', 2500000, 8.0),
+(2,'KGF','Kannada',8000000, 8.5),
+(3,'Kantara', 'kannada', 3000000, 8.6),
+(4,'Leo','Tamil', 200000, 7.5),
+(5,'avesham', 'Malayalam', 4000000, 8.7);
+
+2) Unique: 
+
+CREATE TABLE pkl_info(id int not null unique, 
+team_name varchar(20) unique, captain_name varchar(15)
+not null);
+
+select * from pkl_info;
+
+insert into pkl_info values(1, 'BengaluruBulls','pardeep');
+insert into pkl_info values(2, null,'Rahul');
+insert into pkl_info values(3, 'TT','pawan');
+
+update pkl_info set team_name = 'DD' where id = 2;
+
+alter table pkl_info modify column team_name varchar(30)
+not null;
+
+
 /*
 28/03/2025
 
@@ -1086,6 +1123,9 @@ SELECT genre, COUNT(*), AVG(IMDB_rating) FROM movies_info GROUP BY genre HAVING 
 SELECT director, MAX(IMDB_rating) FROM movies_info GROUP BY director HAVING MAX(IMDB_rating) > 8.5;
 SELECT lead_actor, COUNT(*), SUM(box_office_cr) FROM movies_info GROUP BY lead_actor HAVING COUNT(*) > 2;
 
+/*******************************
+01/04/25   **********/
+
 CHECK:
 
 CREATE TABLE employee_info(id int not null unique,
@@ -1121,5 +1161,102 @@ INSERT into mentee_info values(5, 'Kiran', 22, 'SJMIT', 'AIML', 'Swaroop Singh')
 INSERT into mentee_info values(6, 'Sharath Kumar', 23, 'BMSIT', 'AIML', 'Anuragh Batt');
 INSERT into mentee_info values(7, 'abc', 26, null, 'AIML', 'Anuragh Batt');
 
+/****************************/
+
+
+SELECT * from pkl_info;
+ALTER TABLE pkl_info MODIFY column ID int;
+ALTER TABLE pkl_info MODIFY column ID int not null unique;
+
+ALTER TABLE pkl_info MODIFY column team_name varchar(30);
+ALTER TABLE pkl_info MODIFY column team_name varchar(30) not null unique;
+
+ALTER TABLE pkl_info MODIFY column captain varchar(30);
+ALTER TABLE pkl_info MODIFY column captain varchar(30) not null unique;
+
+ALTER TABLE pkl_info MODIFY column coach varchar(30);
+ALTER TABLE pkl_info MODIFY column coach varchar(30) not null unique;
+
+ALTER TABLE pkl_info MODIFY column star_player varchar(30);
+ALTER TABLE pkl_info MODIFY column star_player varchar(30) not null unique;
+
+ALTER TABLE pkl_info MODIFY column sponsor varchar(30);
+ALTER TABLE pkl_info MODIFY column sponsor varchar(30) not null unique;
+
+ALTER TABLE pkl_info MODIFY column titles_won int not null;
+ALTER TABLE pkl_info MODIFY column titles_won int unique;
+ALTER TABLE pkl_info MODIFY column titles_won int;
+
+ALTER TABLE pkl_info MODIFY column home_ground varchar(30) not null unique;
+ALTER TABLE pkl_info MODIFY column home_ground varchar(30) not null;
+
+ALTER TABLE pkl_info MODIFY column founded_year year;
+ALTER TABLE pkl_info MODIFY column founded_year year not null;
+ALTER TABLE pkl_info MODIFY column founded_year year not null  unique;
+
+
+select * from movies_info;
+ALTER TABLE movies_info MODIFY column movie_id int;
+ALTER TABLE movies_info MODIFY column movie_id int not null unique;
+
+ALTER TABLE movies_info MODIFY column movie_name VARCHAR(40);
+ALTER TABLE movies_info MODIFY column movie_name VARCHAR(40) not null unique;
+
+ALTER TABLE movies_info MODIFY column lead_actor VARCHAR(50);
+ALTER TABLE movies_info MODIFY column lead_actor VARCHAR(50) not null;
+ALTER TABLE movies_info MODIFY column lead_actor VARCHAR(50) not null unique;
+
+ALTER TABLE movies_info MODIFY column lead_actress VARCHAR(50);
+ALTER TABLE movies_info MODIFY column lead_actress VARCHAR(50) not null;
+ALTER TABLE movies_info MODIFY column lead_actress VARCHAR(50) not null unique;
+
+ALTER TABLE movies_info MODIFY column genre VARCHAR(50) ;
+ALTER TABLE movies_info MODIFY column genre VARCHAR(50) not null unique;
+
+ALTER TABLE movies_info MODIFY column director VARCHAR(50) ;
+ALTER TABLE movies_info MODIFY column director VARCHAR(50) not null unique;
+
+ALTER TABLE movies_info MODIFY column release_Year INT;
+ALTER TABLE movies_info MODIFY column release_Year INT not null unique;
+ALTER TABLE movies_info MODIFY column release_Year INT not null;
+
+ALTER TABLE movies_info MODIFY column IMDB_rating DECIMAL(2,1) not null unique;
+ALTER TABLE movies_info MODIFY column IMDB_rating DECIMAL(2,1) not null;
+ALTER TABLE movies_info MODIFY column IMDB_rating DECIMAL(2,1);
+
+ALTER TABLE movies_info MODIFY column box_office_cr INT;
+ALTER TABLE movies_info MODIFY column box_office_cr INT not null unique;
+
+ALTER TABLE movies_info MODIFY column production_house VARCHAR(50);
+ALTER TABLE movies_info MODIFY column production_house VARCHAR(50) not null;
+
+
+SELECT * from cosmetics_info;
+ALTER table cosmetics_info MODIFY column id int;
+ALTER table cosmetics_info MODIFY column id int not null unique;
+
+ALTER table cosmetics_info MODIFY column product_Name VARCHAR(50);
+ALTER table cosmetics_info MODIFY column product_Name VARCHAR(50) not null unique;
+
+ALTER table cosmetics_info MODIFY column brand VARCHAR(30);
+ALTER table cosmetics_info MODIFY column brand VARCHAR(30) not null unique;
+
+ALTER table cosmetics_info MODIFY column product_type VARCHAR(30) not null;
+ALTER table cosmetics_info MODIFY column product_type VARCHAR(30);
+
+ALTER table cosmetics_info MODIFY column price INT;
+ALTER table cosmetics_info MODIFY column price INT not null;
+
+ALTER table cosmetics_info MODIFY column product_usage VARCHAR(30) ;
+ALTER table cosmetics_info MODIFY column product_usage VARCHAR(30) not null unique;
+
+ALTER table cosmetics_info MODIFY column rating DECIMAL(2,1) not null;
+ALTER table cosmetics_info MODIFY column rating DECIMAL(2,1);
+
+ALTER table cosmetics_info MODIFY column ingredients varchar(40);
+ALTER table cosmetics_info MODIFY column ingredients varchar(40) not null unique;
+
+ALTER table cosmetics_info MODIFY column Availability VARCHAR(30);
+ALTER table cosmetics_info MODIFY column Availability VARCHAR(30) not null;
 
 
