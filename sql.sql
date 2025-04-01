@@ -860,7 +860,6 @@ founded_year year, home_ground varchar(30), sponsor varchar(30) not null unique)
 desc pkl_info;
 alter table pkl_info modify titles_won int;
 
-
 alter table pkl_info modify home_ground varchar(30);
 alter table pkl_info modify sponsor varchar(30);
 alter table pkl_info modify coach varchar(30);
@@ -920,6 +919,7 @@ SELECT SUM(titles_won) AS total_titles_won FROM pkl_info;
 SELECT home_city, COUNT(*) AS total_teams FROM pkl_info GROUP BY home_city;
 SELECT home_city, SUM(titles_won) AS total_titles FROM pkl_info GROUP BY home_city;
 SELECT owner_name, COUNT(*) AS total_teams_owned FROM pkl_info GROUP BY owner_name;
+SELECT home_city, SUM(titles_won) AS total_titles FROM pkl_info GROUP BY home_city;
 SELECT home_city, SUM(titles_won) AS total_titles FROM pkl_info GROUP BY home_city HAVING total_titles > 2;
 SELECT sponsor, COUNT(*) AS sponsored_teams FROM pkl_info GROUP BY sponsor HAVING COUNT(*) > 1;
 
@@ -999,10 +999,14 @@ SELECT product_type, AVG(rating) FROM cosmetics_info GROUP BY product_type HAVIN
 SELECT brand, COUNT(*) FROM cosmetics_info WHERE stock_status = 'In Stock' GROUP BY brand HAVING COUNT(*) > 2;
 
 
-CREATE TABLE movies_info ( movie_id int not null unique, movie_name VARCHAR(40) not null unique,
-    lead_actor VARCHAR(50), lead_actress VARCHAR(50),
-    director VARCHAR(50) not null unique, release_Year INT not null , genre VARCHAR(30), IMDB_rating DECIMAL(2,1),
-    box_office_cr INT not null unique, production_house VARCHAR(50));
+CREATE TABLE movies_info ( movie_id int not null unique, 
+movie_name VARCHAR(40) not null unique,
+lead_actor VARCHAR(50), lead_actress VARCHAR(50),
+director VARCHAR(50) not null unique, 
+release_Year INT not null , 
+genre VARCHAR(30), IMDB_rating DECIMAL(2,1),
+box_office_cr INT not null unique, 
+production_house VARCHAR(50));
 
 INSERT INTO movies_info (movie_id, movie_name, lead_actor, lead_actress, director, release_year, genre, IMDB_rating, box_office_cr, production_house) VALUES
 (1,'KGF Chapter 1', 'Yash', 'Srinidhi Shetty', 'Prashanth Neel', 2018, 'Action', 8.2, 250, 'Hombale Films'),
@@ -1032,27 +1036,28 @@ SELECT * from movies_info;
 ALTER TABLE movies_info ADD COLUMN language VARCHAR(20);
 UPDATE movies_info SET language = 'Kannada';
 ALTER TABLE movies_info ADD COLUMN movie_code VARCHAR(10);
-UPDATE movies_info SET movie_code = "MV001" where movie_id=1;
-UPDATE movies_info SET movie_code = "MV002" where movie_id=2;
-UPDATE movies_info SET movie_code = "MV003" where movie_id=3;
-UPDATE movies_info SET movie_code = "MV004" where movie_id=4;
-UPDATE movies_info SET movie_code = "MV005" where movie_id=5;
-UPDATE movies_info SET movie_code = "MV006" where movie_id=6;
-UPDATE movies_info SET movie_code = "MV007" where movie_id=7;
-UPDATE movies_info SET movie_code = "MV008" where movie_id=8;
-UPDATE movies_info SET movie_code = "MV009" where movie_id=9;
-UPDATE movies_info SET movie_code = "MV0010" where movie_id=10;
-UPDATE movies_info SET movie_code = "MV0011" where movie_id=11;
-UPDATE movies_info SET movie_code = "MV0012" where movie_id=12;
-UPDATE movies_info SET movie_code = "MV0013" where movie_id=13;
-UPDATE movies_info SET movie_code = "MV0014" where movie_id=14;
-UPDATE movies_info SET movie_code = "MV0015" where movie_id=15;
-UPDATE movies_info SET movie_code = "MV0016" where movie_id=16;
-UPDATE movies_info SET movie_code = "MV0017" where movie_id=17;
-UPDATE movies_info SET movie_code = "MV0018" where movie_id=18;
-UPDATE movies_info SET movie_code = "MV0019" where movie_id=19;
-UPDATE movies_info SET movie_code = "MV0020" where movie_id=20;
-UPDATE movies_info SET movie_code = "MV0021" where movie_id=21;
+UPDATE movies_info SET movie_code = "A00465" where movie_id=1;
+UPDATE movies_info SET movie_code = "B00543" where movie_id=2;
+UPDATE movies_info SET movie_code = "J78990" where movie_id=3;
+UPDATE movies_info SET movie_code = "K45409" where movie_id=4;
+UPDATE movies_info SET movie_code = "A30674" where movie_id=5;
+UPDATE movies_info SET movie_code = "M00945" where movie_id=6;
+UPDATE movies_info SET movie_code = "N80009" where movie_id=7;
+UPDATE movies_info SET movie_code = "L00076" where movie_id=8;
+UPDATE movies_info SET movie_code = "R00003" where movie_id=9;
+UPDATE movies_info SET movie_code = "H999D3" where movie_id=10;
+UPDATE movies_info SET movie_code = "O09944" where movie_id=11;
+UPDATE movies_info SET movie_code = "0H0654" where movie_id=12;
+UPDATE movies_info SET movie_code = "T09453" where movie_id=13;
+UPDATE movies_info SET movie_code = "E00975" where movie_id=14;
+UPDATE movies_info SET movie_code = "D01550" where movie_id=15;
+UPDATE movies_info SET movie_code = "G78366" where movie_id=16;
+UPDATE movies_info SET movie_code = "P76547" where movie_id=17;
+UPDATE movies_info SET movie_code = "Q76541" where movie_id=18;
+UPDATE movies_info SET movie_code = "Y98762" where movie_id=19;
+UPDATE movies_info SET movie_code = "S76326" where movie_id=20;
+UPDATE movies_info SET movie_code = "F37293" where movie_id=21;
+
 
 SELECT * FROM movies_info;
 SELECT COUNT(*) FROM movies_info;
@@ -1069,7 +1074,7 @@ SELECT genre, COUNT(*) FROM movies_info GROUP BY genre HAVING COUNT(*) > 1;
 
 SELECT director, MIN(IMDB_rating) FROM movies_info GROUP BY director;
 SELECT director, MAX(IMDB_rating) FROM movies_info GROUP BY director;
-
+SELECT * FROM movies_info;
 SELECT production_house, AVG(IMDB_rating) FROM movies_info GROUP BY production_house;
 SELECT lead_actor, MAX(box_office_cr) FROM movies_info GROUP BY lead_actor;
 SELECT genre, COUNT(*) FROM movies_info GROUP BY genre HAVING COUNT(*) > 3;
@@ -1080,4 +1085,56 @@ SELECT genre, AVG(box_office_cr) FROM movies_info GROUP BY genre HAVING AVG(box_
 SELECT genre, COUNT(*), AVG(IMDB_rating) FROM movies_info GROUP BY genre HAVING AVG(IMDB_rating) > 8;
 SELECT director, MAX(IMDB_rating) FROM movies_info GROUP BY director HAVING MAX(IMDB_rating) > 8.5;
 SELECT lead_actor, COUNT(*), SUM(box_office_cr) FROM movies_info GROUP BY lead_actor HAVING COUNT(*) > 2;
+
+
+CHECK:
+
+CREATE TABLE employee_info(id int not null unique,
+emp_name varchar(20) not null unique,
+emp_dept varchar(20) not null, emp_sal bigint,
+emp_age int, check (emp_age > 20));
+
+Rename table old_table_name to new_table_name;
+
+Rename table employee_info to emp_info;
+
+
+select * from emp_info;
+
+INSERT INTO emp_info values(1,'Akshar', 'HR', 50000, 26);
+
+
+CREATE TABLE mentee_info(id int not null unique, 
+mentee_name varchar(20) not null unique,
+age int, college_name varchar(30) not null, 
+branch_name varchar(20) not null, mentor_name varchar(20) not null,
+CHECK (age>=20 and age<30));
+
+ALTER TABLE mentee_info modify column college_name varchar(30);
+
+
+desc mentee_info;
+select * from mentee_info;
+insert into mentee_info values(1, 'Anu', 19, 'GEC challakere', 'CSE', 'Swathi Sharma');
+INSERT into mentee_info values(1, 'Anu', 20, 'GEC challakere', 'CSE', 'Swathi Sharma');
+INSERT into mentee_info values(2, 'Bavya', 30, 'GEC Karavar', 'E&C', 'Aditi Rathod');
+INSERT into mentee_info values(2, 'Bavya', 21, 'GEC Karavar', 'E&C', 'Aditi Rathod');
+INSERT into mentee_info values(3, 'Chethan', 20, 'RV College', 'EEE', 'Shalaka Gupta');
+INSERT into mentee_info values(4, 'Dinakar S', 22, 'Reva Univercity', 'AIML', 'Prasad T M');
+INSERT into mentee_info values(5, 'Kiran', 34, 'SJMIT', 'AIML', 'Swaroop Singh');
+INSERT into mentee_info values(5, 'Kiran', 22, 'SJMIT', 'AIML', 'Swaroop Singh');
+INSERT into mentee_info values(6, 'Sharath Kumar', 23, 'BMSIT', 'AIML', 'Anuragh Batt');
+INSERT into mentee_info values(7, 'abc', 26, null, 'AIML', 'Anuragh Batt');
+
+
+
+
+
+
+
+
+
+
+
+
 
