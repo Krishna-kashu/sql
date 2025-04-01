@@ -1086,7 +1086,6 @@ SELECT genre, COUNT(*), AVG(IMDB_rating) FROM movies_info GROUP BY genre HAVING 
 SELECT director, MAX(IMDB_rating) FROM movies_info GROUP BY director HAVING MAX(IMDB_rating) > 8.5;
 SELECT lead_actor, COUNT(*), SUM(box_office_cr) FROM movies_info GROUP BY lead_actor HAVING COUNT(*) > 2;
 
-
 CHECK:
 
 CREATE TABLE employee_info(id int not null unique,
@@ -1098,11 +1097,9 @@ Rename table old_table_name to new_table_name;
 
 Rename table employee_info to emp_info;
 
-
 select * from emp_info;
 
 INSERT INTO emp_info values(1,'Akshar', 'HR', 50000, 26);
-
 
 CREATE TABLE mentee_info(id int not null unique, 
 mentee_name varchar(20) not null unique,
@@ -1111,8 +1108,6 @@ branch_name varchar(20) not null, mentor_name varchar(20) not null,
 CHECK (age>=20 and age<30));
 
 ALTER TABLE mentee_info modify column college_name varchar(30);
-
-
 desc mentee_info;
 select * from mentee_info;
 insert into mentee_info values(1, 'Anu', 19, 'GEC challakere', 'CSE', 'Swathi Sharma');
@@ -1125,16 +1120,6 @@ INSERT into mentee_info values(5, 'Kiran', 34, 'SJMIT', 'AIML', 'Swaroop Singh')
 INSERT into mentee_info values(5, 'Kiran', 22, 'SJMIT', 'AIML', 'Swaroop Singh');
 INSERT into mentee_info values(6, 'Sharath Kumar', 23, 'BMSIT', 'AIML', 'Anuragh Batt');
 INSERT into mentee_info values(7, 'abc', 26, null, 'AIML', 'Anuragh Batt');
-
-
-
-
-
-
-
-
-
-
 
 
 
