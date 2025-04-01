@@ -119,8 +119,6 @@ DESC laptop_info;
 SELECT * FROM laptop_info;
 
 
-
-
 DDL:
 1)CREATE
 2)ALTER
@@ -142,8 +140,6 @@ ALTER TABLE laptop_info MODIFY COLUMN laptop_name int;
 ALTER TABLE laptop_info MODIFY COLUMN model int;
 
 ALTER TABLE laptop_info MODIFY COLUMN price varchar(30);
-
-
 
 
 CREATE TABLE metro_info(id int, metro_line varchar(20),
@@ -257,11 +253,7 @@ SELECT hospital_id,hospital_name from hospital_info;
 WHERE: To filter the data based on column condition
 
 SELECT * FROM hospital_info where state = 'Tamil Nadu';
-
-
 SELECT hospital_id,hospital_name from hospital_info where state = 'Karnataka';
-
-
 SELECT * FROM scam_info;
 
 SELECT * from scam_info where year = 2013 AND state = 'Multiple';
@@ -291,8 +283,6 @@ WHERE state = 'Delhi';
 SELECT scam_name, amount_in_crores,year FROM scam_info WHERE state='Multiple' and year=2012 OR year=2013;
 SELECT scam_name,year FROM scam_info WHERE (year=2008 OR state='DELHI' 
 OR scam_name='2G Spectrum Scam') AND key_people='A. Raja';
-
-
 
 select * from scam_info where year = 2008 or year = 2010
 or year = 2012 or year = 2013 or year = 2020;
@@ -387,9 +377,6 @@ default 'India';
 update scam_info set country = 'India';
 
 ALTER TABLE scam_info drop column country;
-
-
-
 
 (*************************************************)
 AND, OR, IN, NOT IN, BETWEEN, NOT BETWEEN, UPDATE
@@ -1229,7 +1216,6 @@ ALTER TABLE movies_info MODIFY column box_office_cr INT not null unique;
 
 ALTER TABLE movies_info MODIFY column production_house VARCHAR(50);
 ALTER TABLE movies_info MODIFY column production_house VARCHAR(50) not null;
-
 
 SELECT * from cosmetics_info;
 ALTER table cosmetics_info MODIFY column id int;
