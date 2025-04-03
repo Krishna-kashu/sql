@@ -528,8 +528,6 @@ INSERT INTO FootBall_info(id, namem, country, club,position, matches, goal, yell
 VALUES(16, 'Achraf Hakimi','Morocco', 'PSG', 'Defender', 350, 25, 30, 1, 89.7);
 
 
-
-
 SELECT * from Cricket_info;
 ALTER TABLE Cricket_info ADD COLUMN Strike_Rate float;
 ALTER TABLE Cricket_info ADD COLUMN Fifties int;
@@ -559,10 +557,6 @@ SELECT * FROM Cricket_info where (age BETWEEN 30 and 35)  AND  player_id NOT IN 
 SELECT * FROM Cricket_info where name like '%%A';
 SELECT * FROM Cricket_info where name like 'A%S%';
 SELECT * FROM Cricket_info where name like '%D%';
-
-
-
-
 
 ALTER TABLE FootBall_info ADD COLUMN Headers int;
 ALTER TABLE FootBall_info ADD COLUMN Tackles int;
@@ -1244,5 +1238,391 @@ ALTER table cosmetics_info MODIFY column ingredients varchar(40) not null unique
 
 ALTER table cosmetics_info MODIFY column Availability VARCHAR(30);
 ALTER table cosmetics_info MODIFY column Availability VARCHAR(30) not null;
+
+/* 2/4/25 */
+
+CREATE TABLE cric_info(id int, player_name varchar(20), team_name varchar(20),
+jersey_no int, no_of_matches int, total_runs int);
+
+SELECT * FROM cric_info;
+
+ALTER TABLE cric_info modify column team_name varchar(30) not null;
+/*Syntax for adding constraint using constarint name
+ALTER TABLE table_name ADD constraint constraint_name type_of_constraint
+(column_name);*/
+
+update cric_info set player_name = 'ViratKohli' where id = 3;
+
+ALTER TABLE cric_info ADD CONSTRAINT player_name_uni UNIQUE(player_name);
+
+ALTER TABLE cric_info ADD constraint team_name_uni unique(team_name);
+
+ALTER TABLE cric_info DROP CONSTRAINT team_name_uni;
+
+
+insert into cric_info values(5,'axar', 'india', 19, 50, 2000);
+
+ALTER TABLE cric_info add constraint matches_chk check(no_of_matches > 100);
+
+ALTER TABLE cric_info drop constraint matches_chk;
+
+PRIMARY KEY:
+
+CREATE TABLE food_info(id int primary key, food_item varchar(20), 
+price decimal(4,2),
+no_of_integrents int, chef_name varchar(20));
+
+SELECT * FROM food_info;
+
+INSERT INTO food_info values(1,'Rice', 50.00, 3,'sunil');
+INSERT INTO food_info values(2,'noodles', 90.00, 4,'abc');
+
+CREATE TABLE bank_info(id int, bank_name varchar(20), bank_branch varchar(20),
+no_of_cust int, ifsc_code varchar(30), primary key(bank_name, bank_branch)); 
+
+select * from bank_info;
+
+insert into bank_info values(1,'sbi','btm', 500, 'sbibtm');
+insert into bank_info values(2,'sbi','jaynagr', 800, 'sbijn');
+insert into bank_info values(3,'hdfc','btm', 300, 'sbibt');
+
+ENUM: Enumeration.
+
+CREATE TABLE olympics_info(id int, game_name varchar(20), 
+game_type enum('indoor', 'outdoor'),
+country_name varchar(30), no_of_medals int, rank_position int, no_of_players int,
+coach_name varchar(20), gender varchar(20), age int, sponsor varchar(20), weight int,
+city varchar(20));
+
+select * from olympics_info;
+INSERT INTO olympics_info values(1,'javilthrow', 'outdoor',
+'India', 2, 1, 1,'ABC', 'M', 30, 'PUMA', 60,'Delhi');
+
+INSERT INTO olympics_info values(2,'Batminton', 1,
+'India', 2, 1, 1,'ABC', 'M', 30, 'PUMA', 60,'Delhi');
+
+/*Create table:
+Furniture_info : 10 columns use any one column as enum
+electronic_gadgets: 10 columns use any one column as enum
+restaurant_info: 10 columns use any one column as enum
+olympics_info: 10 columns use any one column as enum
+For each table apply not null, unique, check constraint for 6 columns using alter.
+Insert 15 data for each table.
+ADD 2 COLUMN using alter.
+update data for new columns.
+*/
+
+CREATE TABLE furniture_info(id int not null, name varchar(20), type enum('Storage','Seating'), 
+material varchar(20), brand varchar(20), color varchar(20), price bigint, 
+dimension varchar(20), weight int, warranty int);
+
+ALTER TABLE furniture_info add CONSTRAINT id_unique unique(id);
+ALTER TABLE furniture_info ADD CONSTRAINT CHK_price CHECK (price > 0);
+ALTER TABLE furniture_info ADD CONSTRAINT CHK_weight CHECK (weight > 5);
+ALTER TABLE furniture_info modify column brand varchar(20) not null;
+ALTER TABLE furniture_info modify column name varchar(20) not null;
+ALTER TABLE furniture_info ADD CONSTRAINT CHK_warranty CHECK (warranty >= 0);
+
+desc furniture_info;
+SELECT * from furniture_info;
+INSERT INTO furniture_info VALUES(1, 'Chair', 'Seating', 'Wood', 'IKEA', 'Brown', 5000, '40x40x90', 7, 1),
+(2, 'Table', 'Storage', 'Metal', 'Godrej', 'Black', 10000, '120x60x75', 20, 2),
+(3, 'Sofa', 'Seating', 'Fabric', 'Pepperfry', 'Blue', 25000, '200x90x100', 35, 5),
+(4, 'Bed', 1, 'Wood', 'Sleepwell', 'White', 30000, '210x180x50', 50, 7),
+(5, 'Wardrobe', 1, 'Plywood', 'Hometown', 'Grey', 18000, '180x100x50', 40, 3),
+(6, 'Desk', 1, 'Wood', 'Durian', 'Mahogany', 12000, '140x60x75', 15, 2),
+(7, 'Recliner', 2, 'Leather', 'La-Z-Boy', 'Brown', 28000, '100x90x100', 25, 5),
+(8, 'Bookshelf', 1, 'Wood', 'IKEA', 'White', 8000, '80x30x180', 18, 3),
+(9, 'Coffee Table', 1, 'Glass', 'Hometown', 'Transparent', 7000, '90x50x45', 12, 2),
+(10, 'TV Unit', 1, 'MDF', 'UrbanLadder', 'Walnut', 15000, '160x50x60', 20, 4),
+(11, 'Dining Table', 1, 'Wood', 'Nilkamal', 'Cherry', 20000, '180x90x75', 30, 5),
+(12, 'Shoe Rack', 1, 'Plastic', 'IKEA', 'Beige', 4000, '60x30x100', 8, 1),
+(13, 'Cupboard', 1, 'Steel', 'Godrej', 'Grey', 25000, '200x100x50', 45, 7),
+(14, 'Stool', 2, 'Wood', 'Pepperfry', 'Brown', 3000, '35x35x50', 6, 1),
+(15, 'Nightstand', 1, 'MDF', 'Hometown', 'Black', 5000, '50x40x60', 10, 2),
+(16, 'Ottoman', 2, 'Fabric', 'Durian', 'Green', 8000, '70x50x40', 6, 3),
+(17, 'Chest Drawer', 1, 'Wood', 'IKEA', 'White', 12000, '100x50x90', 25, 4),
+(18, 'Vanity Table', 1, 'Plywood', 'Hometown', 'Pink', 15000, '120x50x80', 22, 5),
+(19, 'Bar Stool', 2, 'Metal', 'UrbanLadder', 'Red', 6000, '45x45x90', 8, 2),
+(20, 'Side Table', 1, 'Plastic', 'IKEA', 'Red', 3000, '50x50x50', 6, 1);
+
+alter table furniture_info add column stock int;
+alter table furniture_info add column manufacturer varchar(20);
+
+UPDATE furniture_info SET Stock = 20 WHERE ID = 1;
+UPDATE furniture_info SET Manufacturer = 'XYZ Furnish' WHERE ID = 1;
+UPDATE furniture_info SET Manufacturer = 'ABC Home' WHERE ID = 2;
+UPDATE furniture_info SET Stock = 15 WHERE ID = 2;
+UPDATE furniture_info SET Stock = 10 WHERE ID = 3;
+UPDATE furniture_info SET Manufacturer = 'Comfort Luxe' WHERE ID = 3;
+UPDATE furniture_info SET Stock = 8 WHERE ID = 4;
+UPDATE furniture_info SET Manufacturer = 'CozyNest' WHERE ID = 4;
+UPDATE furniture_info SET Stock = 12 WHERE ID = 5;
+UPDATE furniture_info SET Manufacturer = 'Space Saver' WHERE ID = 5;
+UPDATE furniture_info SET Stock = 18 WHERE ID = 6;
+UPDATE furniture_info SET Manufacturer = 'Urban Craft' WHERE ID = 6;
+UPDATE furniture_info SET Stock = 5 WHERE ID = 7;
+UPDATE furniture_info SET Manufacturer = 'Comfort Plus' WHERE ID = 7;
+UPDATE furniture_info SET Stock = 22 WHERE ID = 8;
+UPDATE furniture_info SET Manufacturer = 'ReadEase' WHERE ID = 8;
+UPDATE furniture_info SET Stock = 25 WHERE ID = 9;
+UPDATE furniture_info SET Manufacturer = 'Trendy Living' WHERE ID = 9;
+UPDATE furniture_info SET Stock = 14 WHERE ID = 10;
+UPDATE furniture_info SET Manufacturer = 'Deco Space' WHERE ID = 10;
+UPDATE furniture_info SET Stock = 10 WHERE ID = 11;
+UPDATE furniture_info SET Manufacturer = 'Elite Homes' WHERE ID = 11;
+UPDATE furniture_info SET Stock = 25 WHERE ID = 12;
+UPDATE furniture_info SET Manufacturer = 'SmartOrganize' WHERE ID = 12;
+UPDATE furniture_info SET Stock = 9 WHERE ID = 13;
+UPDATE furniture_info SET Manufacturer = 'Simple Style' WHERE ID = 14;
+UPDATE furniture_info SET Manufacturer = 'SpaceSaver' WHERE ID = 13;
+UPDATE furniture_info SET Stock = 20 WHERE ID = 15;
+UPDATE furniture_info SET Stock = 34 WHERE ID = 14;
+UPDATE furniture_info SET Manufacturer = 'Urban Craft' WHERE ID = 15;
+UPDATE furniture_info SET Stock = 15 WHERE ID = 16;
+UPDATE furniture_info SET Manufacturer = 'Cozy Comfort' WHERE ID = 16;
+UPDATE furniture_info SET Stock = 12 WHERE ID = 17;
+UPDATE furniture_info SET Manufacturer = 'Deco Space' WHERE ID = 17;
+UPDATE furniture_info SET Stock = 8 WHERE ID = 18;
+UPDATE furniture_info SET Manufacturer = 'Elite Homes' WHERE ID = 18;
+UPDATE furniture_info SET Stock = 18 WHERE ID = 19;
+UPDATE furniture_info SET Manufacturer = 'Trendy Living' WHERE ID = 19;
+UPDATE furniture_info SET Stock = 30 WHERE ID = 20;
+UPDATE furniture_info SET Manufacturer = 'QuickHome' WHERE ID = 20;
+SELECT * FROM furniture_info;
+
+CREATE TABLE electronic_gadgets (ID INT PRIMARY KEY, Name VARCHAR(50),
+    Category ENUM('Computing', 'Mobile', 'Entertainment', 'Wearable', 'Audio', 'Photography', 'Gaming', 'Accessories', 'Office', 'Networking', 'Storage'),
+    Brand VARCHAR(50), Model VARCHAR(50), Screen_Size VARCHAR(20), Battery_Life VARCHAR(20), Processor VARCHAR(50), RAM VARCHAR(20), Storage VARCHAR(20));
+
+ALTER TABLE electronic_gadgets ADD CONSTRAINT unique_model UNIQUE (Model);
+ALTER TABLE electronic_gadgets ADD CONSTRAINT unique_processor UNIQUE (Processor);
+ALTER TABLE electronic_gadgets DROP CONSTRAINT unique_processor;
+ALTER TABLE electronic_gadgets MODIFY COLUMN Name VARCHAR(50) NOT NULL;
+ALTER TABLE electronic_gadgets MODIFY COLUMN Category ENUM('Computing', 'Mobile', 'Entertainment', 'Wearable', 'Audio', 'Photography', 'Gaming', 'Accessories', 'Office', 'Networking', 'Storage') NOT NULL;
+ALTER TABLE electronic_gadgets MODIFY COLUMN Brand VARCHAR(50) NOT NULL;
+ALTER TABLE electronic_gadgets MODIFY COLUMN Model VARCHAR(50) NOT NULL;
+ALTER TABLE electronic_gadgets MODIFY COLUMN Processor VARCHAR(50) NOT NULL;
+ALTER TABLE electronic_gadgets MODIFY COLUMN RAM VARCHAR(20) NOT NULL;
+
+desc electronic_gadgets;
+INSERT INTO electronic_gadgets VALUES (1, 'Laptop', 'Computing', 'HP', 'Elite', '15.6 inch', '8 hours', 'i7', '16GB', '512GB'),
+(2, 'Smartphone', 'Mobile', 'Samsung', 'S23', '6.7 inch', '24 hours', 'Exynos', '8GB', '256GB');
+INSERT INTO electronic_gadgets VALUES (3, 'Tablet', 'Mobile', 'Apple', 'iPad Pro', '12.9 inch', '10 hours', 'M1', '16GB', '1TB'),
+(4, 'Smart TV', 'Entertainment', 'Sony', 'Bravia X90J', '65 inch', 'N/A', 'Quad-core', '2GB', '16GB'),
+(5, 'Smartwatch', 'Wearable', 'Garmin', 'Fenix 6', '1.4 inch', '14 days', 'Cortex-M', '512MB', '8GB'),
+(6, 'Headphones', 'Audio', 'Bose', 'QuietComfort', 'N/A', '20 hours', 'N/A', 'N/A', 'N/A'),
+(7, 'Camera', 'Photography', 'Canon', 'EOS R5', 'N/A', 'N/A', 'DIGIC X', 'N/A', '256GB'),
+(8, 'Console', 'Gaming', 'Sony', 'PS5', 'N/A', 'N/A', 'Custom AMD', '16GB', '825GB'),
+(9, 'Mouse', 'Accessories', 'Logitech', 'MX Master 3', 'N/A', '70 days', 'N/A', 'N/A', 'N/A'),
+(10, 'Keyboard', 'Accessories', 'Corsair', 'K95', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(11, 'VR Headset', 'Entertainment', 'Meta', 'Quest 2', '5.5 inch', '3 hours', 'Snapdragon', '6GB', '128GB'),
+(12, 'Drone', 'Photography', 'DJI', 'Mavic Air 2', 'N/A', '34 mins', 'Quad-core', 'N/A', '128GB'),
+(13, 'Speaker', 'Audio', 'JBL', 'Charge 5', 'N/A', '20 hours', 'N/A', 'N/A', 'N/A'),
+(14, 'Monitor', 'Computing', 'Dell', 'UltraSharp', '27 inch', 'N/A', 'N/A', 'N/A', 'N/A'),
+(15, 'Printer', 'Office', 'HP', 'LaserJet', 'N/A', 'N/A', 'Quad-core', '512MB', 'N/A'),
+(16, 'Router', 'Networking', 'Netgear', 'Nighthawk', 'N/A', 'N/A', 'Dual-core', 'N/A', 'N/A'),
+(17, 'Hard Drive', 'Storage', 'Seagate', 'Backup Plus', 'N/A', 'N/A', 'N/A', 'N/A', '2TB'),
+(18, 'Webcam', 'Accessories', 'Logitech', 'C920', 'N/A', 'N/A', 'N/A', 'N/A', 'N/A'),
+(19, 'Power Bank', 'Accessories', 'Anker', 'PowerCore', 'N/A', '20 hours', 'N/A', 'N/A', 'N/A'),
+(20, 'E-Reader', 'Mobile', 'Kindle', 'Paperwhite', '6 inch', '10 weeks', 'N/A', 'N/A', '32GB');
+
+SELECT * from electronic_gadgets;
+ALTER TABLE electronic_gadgets ADD COLUMN Price INT;
+ALTER TABLE electronic_gadgets ADD COLUMN Warranty VARCHAR(20);
+
+UPDATE electronic_gadgets SET Price = 75000 WHERE ID = 1;
+UPDATE electronic_gadgets SET Price = 60000 WHERE ID = 2;
+UPDATE electronic_gadgets SET Price = 110000 WHERE ID = 3;
+UPDATE electronic_gadgets SET Price = 90000 WHERE ID = 4;
+UPDATE electronic_gadgets SET Price = 50000 WHERE ID = 5;
+UPDATE electronic_gadgets SET Price = 30000 WHERE ID = 6;
+UPDATE electronic_gadgets SET Price = 250000 WHERE ID = 7;
+UPDATE electronic_gadgets SET Price = 50000 WHERE ID = 8;
+UPDATE electronic_gadgets SET Price = 8000 WHERE ID = 9;
+UPDATE electronic_gadgets SET Price = 15000 WHERE ID = 10;
+UPDATE electronic_gadgets SET Price = 35000 WHERE ID = 11;
+UPDATE electronic_gadgets SET Price = 100000 WHERE ID = 12;
+UPDATE electronic_gadgets SET Price = 15000 WHERE ID = 13;
+UPDATE electronic_gadgets SET Price = 30000 WHERE ID = 14;
+UPDATE electronic_gadgets SET Price = 25000 WHERE ID = 15;
+UPDATE electronic_gadgets SET Price = 12000 WHERE ID = 16;
+UPDATE electronic_gadgets SET Price = 8000 WHERE ID = 17;
+UPDATE electronic_gadgets SET Price = 6000 WHERE ID = 18;
+UPDATE electronic_gadgets SET Price = 4000 WHERE ID = 19;
+UPDATE electronic_gadgets SET Price = 12000 WHERE ID = 20;
+
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 1;
+UPDATE electronic_gadgets SET Warranty = '1 Year' WHERE ID = 2;
+UPDATE electronic_gadgets SET Warranty = '3 Years' WHERE ID = 3;
+UPDATE electronic_gadgets SET Warranty = '5 Years' WHERE ID = 4;
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 5;
+UPDATE electronic_gadgets SET Warranty = '1 Year' WHERE ID = 6;
+UPDATE electronic_gadgets SET Warranty = '3 Years' WHERE ID = 7;
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 8;
+UPDATE electronic_gadgets SET Warranty = '1 Year' WHERE ID = 9;
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 10;
+UPDATE electronic_gadgets SET Warranty = '1 Year' WHERE ID = 11;
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 12;
+UPDATE electronic_gadgets SET Warranty = '1 Year' WHERE ID = 13;
+UPDATE electronic_gadgets SET Warranty = '3 Years' WHERE ID = 14;
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 15;
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 16;
+UPDATE electronic_gadgets SET Warranty = '3 Years' WHERE ID = 17;
+UPDATE electronic_gadgets SET Warranty = '1 Year' WHERE ID = 18;
+UPDATE electronic_gadgets SET Warranty = '1 Year' WHERE ID = 19;
+UPDATE electronic_gadgets SET Warranty = '2 Years' WHERE ID = 20;
+
+
+CREATE TABLE restaurant_info (id INT, Name VARCHAR(50),
+    type ENUM('South Indian', 'Coastal', 'Mangalorean', 'Continental', 'Seafood', 'Multi-Cuisine', 'Global Cuisine'),
+    Location VARCHAR(100), Seating_Capacity INT, Ratings decimal(2,1),
+    Opening_Hours TIME, Closing_Hours TIME, Menu_Type ENUM('Vegetarian', 'Non-Vegetarian', 'Veg/Non-Veg'), min_price int);
+
+ALTER TABLE restaurant_info MODIFY Name VARCHAR(255) NOT NULL UNIQUE;
+ALTER TABLE restaurant_info MODIFY type ENUM('South Indian', 'Coastal', 'Mangalorean', 'Continental', 'Seafood', 'Multi-Cuisine', 'Global Cuisine', 'Andhra', 'Karnataka') NOT NULL;
+ALTER TABLE restaurant_info MODIFY Location VARCHAR(100) NOT NULL;
+ALTER TABLE restaurant_info MODIFY Seating_Capacity INT NOT NULL CHECK (Seating_Capacity > 0);
+ALTER TABLE restaurant_info MODIFY Ratings DECIMAL(2,1) NOT NULL CHECK (Ratings >= 0 AND Ratings <= 5);
+ALTER TABLE restaurant_info MODIFY min_price int NOT NULL;
+
+INSERT INTO restaurant_info VALUES (1,'Mavalli Tiffin Room (MTR)', 'South Indian', 'Bengaluru', 100, 4.5, '06:30:00', '23:00:00', 'Vegetarian', 100),
+(2, 'The Konkan', 'Coastal', 'Bengaluru', 80, 4.6, '12:00:00', '23:00:00', 'Non-Vegetarian', 200),
+(3, 'Anupam\'s Coast II Coast', 'Mangalorean', 'Bengaluru', 60, 4.4, '11:30:00', '23:00:00', 'Non-Vegetarian', 666),
+(4, 'Malgudi Mylari Mane', 'South Indian', 'Nelamangala', 50, 4.3, '07:00:00', '22:00:00', 'Vegetarian', 111),
+(5, 'Diesel Café', 'Continental', 'Mangaluru', 70, 4.5, '08:00:00', '23:00:00', 'Non-Vegetarian', 345),
+(6, 'Janatha Deluxe', 'South Indian', 'Mangaluru', 100, 4.2, '07:00:00', '22:00:00', 'Vegetarian', 239),
+(7, 'Giri Manjas', 'Seafood', 'Mangaluru', 40, 4.6, '11:00:00', '22:00:00', 'Non-Vegetarian', 279),
+(8, 'The Little South', 'South Indian', 'Mysuru', 60, 4.4, '08:00:00', '22:00:00', 'Vegetarian', 200),
+(9, 'Black Pepper', 'Multi-Cuisine', 'Mysuru', 80, 4.3, '12:00:00', '23:00:00', 'Veg/Non-Veg', 555),
+(10, 'Mosaic', 'Global Cuisine', 'Mysuru', 90, 4.5, '00:00:00', '00:00:00', 'Veg/Non-Veg', 129),
+(11, 'Maddur Tiffany’s', 'South Indian', 'Maddur', 50, 4.2, '05:30:00', '20:30:00', 'Vegetarian', 999),
+(12, 'Shark Food Court', 'Multi-Cuisine', 'Kunigal', 120, 4.0, '06:00:00', '23:00:00', 'Veg/Non-Veg', 99),
+(13, 'Empire Restaurant', 'Multi-Cuisine', 'Bengaluru', 150, 4.1, '12:00:00', '02:00:00', 'Veg/Non-Veg', 50),
+(14, 'Vidyarthi Bhavan', 'South Indian', 'Bengaluru', 60, 4.5, '06:30:00', '11:30:00', 'Vegetarian', 509),
+(15, 'Nagarjuna', 'Andhra', 'Bengaluru', 100, 4.3, '12:00:00', '15:30:00', 'Non-Vegetarian', 499),
+(16, 'Koshy\'s', 'Continental', 'Bengaluru', 150, 4.2, '09:00:00', '23:00:00', 'Veg/Non-Veg', 455);
+
+ALTER TABLE restaurant_info ADD COLUMN Owner VARCHAR(50);
+ALTER TABLE restaurant_info ADD COLUMN Established_Year INT;
+
+UPDATE restaurant_info SET Established_Year = 1924 WHERE Name = 'Mavalli Tiffin Room (MTR)';
+UPDATE restaurant_info SET Owner = 'Hemamalini Maiya' WHERE Name = 'Mavalli Tiffin Room (MTR)';
+UPDATE restaurant_info SET Owner = 'Private Ownership'  WHERE Name = 'The Konkan';
+UPDATE restaurant_info SET Established_Year = 2018 WHERE Name = 'The Konkan';
+UPDATE restaurant_info SET Established_Year = 1994 where id=3;
+UPDATE restaurant_info SET Owner = 'Anupam Adiga' WHERE Name = 'Anupam\'s Coast II Coast';
+UPDATE restaurant_info SET Established_Year = 2015 where id=4;
+UPDATE restaurant_info SET Owner = 'Private Ownership' WHERE Name = 'Malgudi Mylari Mane';
+UPDATE restaurant_info SET Established_Year = 2007 where id=5;
+UPDATE restaurant_info SET Owner = 'Private Ownership' WHERE Name = 'Diesel Café';
+UPDATE restaurant_info SET Established_Year = 1980 where id =6;
+UPDATE restaurant_info SET Owner = 'Private Ownership' WHERE Name = 'Janatha Deluxe';
+UPDATE restaurant_info SET Established_Year = 1995  where id =7;
+UPDATE restaurant_info SET Owner = 'Private Ownership'WHERE Name = 'Giri Manjas';
+UPDATE restaurant_info SET Established_Year = 2010  where id =8;
+UPDATE restaurant_info SET Owner = 'Private Ownership'WHERE Name = 'The Little South';
+UPDATE restaurant_info SET Established_Year = 2012  where id =9;
+UPDATE restaurant_info SET Owner = 'Private Ownership'WHERE Name = 'Black Pepper';
+UPDATE restaurant_info SET Established_Year = 2015 where id =10;
+UPDATE restaurant_info SET Owner = 'Country Inn & Suites' WHERE Name = 'Mosaic';
+UPDATE restaurant_info SET Established_Year = 1970 where id =11;
+UPDATE restaurant_info SET Owner = 'Private Ownership'  WHERE Name = 'Maddur Tiffany’s';
+UPDATE restaurant_info SET Established_Year = 2010 where id =12;
+UPDATE restaurant_info SET Owner = 'Private Ownership' WHERE Name = 'Shark Food Court';
+UPDATE restaurant_info SET  Established_Year = 1966 where id =13;
+UPDATE restaurant_info SET Owner = 'Private Ownership' WHERE Name = 'Empire Restaurant';
+UPDATE restaurant_info SET Established_Year = 1943 where id =14;
+UPDATE restaurant_info SET Owner = 'Private Ownership'  WHERE Name = 'Vidyarthi Bhavan';
+UPDATE restaurant_info SET  Established_Year = 1945 where id =15;
+UPDATE restaurant_info SET Owner = 'Private Ownership' WHERE id =15;
+UPDATE restaurant_info SET Established_Year = 1963 where id =16;
+UPDATE restaurant_info SET Owner = 'Private Ownership' where id =16;
+
+select * from restaurant_info;
+
+CREATE TABLE OlympicEvents (id INT, EventName VARCHAR(50),
+Sport ENUM('Athletics', 'Football', 'Swimming', 'Basketball', 'Gymnastics', 'Diving', 'Hockey', 'Shooting', 'Table Tennis', 'Taekwondo', 'Cycling', 'Tennis', 'Weightlifting'),
+Year INT, HostCity VARCHAR(30), Country VARCHAR(30), GoldMedalist VARCHAR(30), SilverMedalist VARCHAR(30), BronzeMedalist VARCHAR(30), Participants INT);
+
+ALTER TABLE OlympicEvents MODIFY EventName VARCHAR(50) NOT NULL;
+ALTER TABLE OlympicEvents MODIFY Sport ENUM('Athletics', 'Football', 'Swimming', 'Basketball', 'Gymnastics', 'Diving', 'Hockey', 'Shooting', 'Table Tennis', 'Taekwondo', 'Cycling', 'Tennis', 'Weightlifting') NOT NULL;
+ALTER TABLE OlympicEvents MODIFY Year INT NOT NULL CHECK (Year >= 1896);
+ALTER TABLE OlympicEvents MODIFY HostCity VARCHAR(50) NOT NULL;
+ALTER TABLE OlympicEvents MODIFY Country VARCHAR(50) NOT NULL;
+ALTER TABLE OlympicEvents MODIFY GoldMedalist VARCHAR(50) NOT NULL;
+ALTER TABLE OlympicEvents ADD CONSTRAINT unique_event UNIQUE (EventName);
+ALTER TABLE OlympicEvents ADD CONSTRAINT unique_event UNIQUE (Year);
+
+INSERT INTO OlympicEvents VALUES(1, '100m Sprint Men', 'Athletics', 2020, 'Tokyo', 'Japan', 'Marcell Jacobs', 'Fred Kerley', 'Andre De Grasse', 8),
+(2, '100m Sprint Women', 'Athletics', 2020, 'Tokyo', 'Japan', 'Elaine Thompson-Herah', 'Shelly-Ann Fraser-Pryce', 'Shericka Jackson', 8),
+(3, 'Men\'s Football Final', 'Football', 2016, 'Rio de Janeiro', 'Brazil', 'Brazil', 'Germany', 'Nigeria', 22),
+(4, 'Women\'s Football Final', 'Football', 2012, 'London', 'UK', 'USA', 'Japan', 'Canada', 22),
+(5, '200m Butterfly Men', 'Swimming', 2008, 'Beijing', 'China', 'Michael Phelps', 'Laszlo Cseh', 'Takeshi Matsuda', 8),
+(6, '400m Freestyle Women', 'Swimming', 2016, 'Rio de Janeiro', 'Brazil', 'Katie Ledecky', 'Jazz Carlin', 'Leah Smith', 8),
+(7, 'Men\'s Basketball Final', 'Basketball', 2012, 'London', 'UK', 'USA', 'Spain', 'Russia', 10),
+(8, 'Women\'s Gymnastics All-Around', 'Gymnastics', 2016, 'Rio de Janeiro', 'Brazil', 'Simone Biles', 'Aly Raisman', 'Aliya Mustafina', 24),
+(9, 'Men\'s 10m Platform Diving', 'Diving', 2020, 'Tokyo', 'Japan', 'Cao Yuan', 'Yang Jian', 'Tom Daley', 12),
+(10, 'Women\'s 4x100m Relay', 'Athletics', 2016, 'Rio de Janeiro', 'Brazil', 'USA', 'Jamaica', 'Great Britain', 8),
+(11, 'Men\'s Marathon', 'Athletics', 2020, 'Sapporo', 'Japan', 'Eliud Kipchoge', 'Abdi Nageeye', 'Bashir Abdi', 50),
+(12, 'Men\'s Pole Vault', 'Athletics', 2020, 'Tokyo', 'Japan', 'Armand Duplantis', 'Christopher Nilsen', 'Thiago Braz', 12),
+(13, 'Women\'s Hockey Final', 'Hockey', 2020, 'Tokyo', 'Japan', 'Netherlands', 'Argentina', 'Great Britain', 22),
+(14, 'Men\'s 50km Walk', 'Athletics', 2016, 'Rio de Janeiro', 'Brazil', 'Matej Tóth', 'Jared Tallent', 'Evan Dunfee', 40),
+(15, 'Women\'s 10m Air Rifle', 'Shooting', 2020, 'Tokyo', 'Japan', 'Yang Qian', 'Anastasiia Galashina', 'Nina Christen', 8);
+
+ALTER TABLE OlympicEvents ADD COLUMN RecordsSet VARCHAR(50);
+ALTER TABLE OlympicEvents ADD COLUMN VenueName VARCHAR(50);
+
+UPDATE OlympicEvents SET RecordsSet = 'Olympic Record' WHERE id = 1;
+UPDATE OlympicEvents SET VenueName = 'Olympic Stadium' WHERE id = 1;
+
+UPDATE OlympicEvents SET RecordsSet = 'Olympic Record' WHERE id = 2;
+UPDATE OlympicEvents SET VenueName = 'Tokyo International Forum' WHERE id = 2;
+
+UPDATE OlympicEvents SET RecordsSet = 'Olympic Record' WHERE id = 3;
+UPDATE OlympicEvents SET VenueName = 'Olympic Stadium' WHERE id = 3;
+
+UPDATE OlympicEvents SET RecordsSet = 'Olympic Record' WHERE id = 4;
+UPDATE OlympicEvents SET VenueName = 'Carioca Arena' WHERE id = 4;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 5;
+UPDATE OlympicEvents SET VenueName = 'Maracanã Stadium' WHERE id = 5;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 6;
+UPDATE OlympicEvents SET VenueName = 'Wembley Stadium' WHERE id = 6;
+
+UPDATE OlympicEvents SET RecordsSet = 'World Record' WHERE id = 7;
+UPDATE OlympicEvents SET VenueName = 'Water Cube' WHERE id = 7;
+
+UPDATE OlympicEvents SET RecordsSet = 'Olympic Record' WHERE id = 8;
+UPDATE OlympicEvents SET VenueName = 'Olympic Aquatics St.' WHERE id = 8;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 9;
+UPDATE OlympicEvents SET VenueName = 'O2 Arena' WHERE id = 9;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 10;
+UPDATE OlympicEvents SET VenueName = 'Rio Olympic Arena' WHERE id = 10;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 11;
+UPDATE OlympicEvents SET VenueName = 'Tokyo Aquatics Centre' WHERE id = 11;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 12;
+UPDATE OlympicEvents SET VenueName = 'Sapporo City' WHERE id = 12;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 13;
+UPDATE OlympicEvents SET VenueName = 'Oi Hockey Stadium' WHERE id = 13;
+
+UPDATE OlympicEvents SET RecordsSet = 'None' WHERE id = 14;
+UPDATE OlympicEvents SET VenueName = 'Pontal Walk Course' WHERE id = 14;
+
+UPDATE OlympicEvents SET RecordsSet = 'Olympic Record' WHERE id = 15;
+UPDATE OlympicEvents SET VenueName = 'Asaka Shooting Range' WHERE id = 15;
+select * FROM OlympicEvents;
+
+
+
+
+
+
 
 
