@@ -1641,8 +1641,6 @@ insert into stadium_info values(2,502, 'wankhede',
 
 ALTER TABLE stadium_info drop constraint cap_uni;
 
-
-
 Foreign key: 
 
 CREATE TABLE library_info(lib_id int primary key,
@@ -1684,10 +1682,11 @@ Location VARCHAR(30), Established_Year INT, Total_Books INT, Librarian_Name VARC
 Contact_Number VARCHAR(15), Email VARCHAR(30), Open_Hours VARCHAR(30),
 Membership_Fee DECIMAL(10,2));
 
+ALTER 
+
 INSERT INTO Library_info VALUES 
 (1, 'Bangalore Central Library', 'MG Road, Bangalore', 1950, 75000, 'Ramesh Kumar', '9876543210', 'bangalorelib@gmail.com', '9 AM - 8 PM', 100.00),
 (2, 'JP Nagar Public Library', 'JP Nagar, Bangalore', 1995, 45000, 'Priya Sharma', '9988776655', 'jpnagarlib@gmail.com', '10 AM - 7 PM', 50.00);
-
 
 CREATE TABLE Books (Book_ID INT PRIMARY KEY, Library_ID INT, Title VARCHAR(30), Author VARCHAR(30),
 Genre VARCHAR(30), Published_Year INT, ISBN VARCHAR(20), Available_Copies INT,
@@ -1697,7 +1696,6 @@ INSERT INTO Books VALUES
 (101, 1, 'Wings of Fire', 'A.P.J. Abdul Kalam', 'Autobiography', 1999, '9788173711466', 5, 20, 299.00),
 (102, 1, 'The White Tiger', 'Aravind Adiga', 'Fiction', 2008, '9788172237455', 8, 15, 399.00),
 (103, 2, 'India After Gandhi', 'Ramachandra Guha', 'History', 2007, '9780330505543', 10, 25, 499.00);
-
 
 CREATE TABLE Members (Member_ID INT PRIMARY KEY, Library_ID INT, Book_ID INT,
 Name VARCHAR(30), Age INT, Address VARCHAR(30), Contact_Number VARCHAR(15),
@@ -1737,6 +1735,39 @@ INSERT INTO Staff VALUES
 (401, 1, 101, 201, 301, 'Suresh Bhat', 'Librarian', 45000.00, '9876500000', 'suresh.bhat@gmail.com'),
 (402, 2, 103, 202, 302, 'Deepa kamath', 'Assistant Librarian', 35000.00, '9898711111', 'deepa.kamath67@gmail.com'),
 (403, 1, 102, 203, 303, 'Arjun Shetty', 'Clerk', 25000.00, '9776650000', 'arjun.sr009@gmail.com');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
