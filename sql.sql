@@ -1620,6 +1620,123 @@ UPDATE OlympicEvents SET VenueName = 'Asaka Shooting Range' WHERE id = 15;
 select * FROM OlympicEvents;
 
 
+CREATE TABLE stadium_info(id int,st_id int, st_name varchar(20),
+st_loc varchar(30), capacity int, no_of_stands int);
+
+select * from stadium_info;
+ALTER TABLE stadium_info add constraint
+st_name_uni UNIQUE(st_name);
+
+alter table stadium_info add constraint
+cap_uni unique(capacity),
+add constraint cap_chk check(capacity > 10000);
+
+ALTER TABLE stadium_info add constraint 
+st_id_pk primary key(st_id);
+
+insert into stadium_info values(1,501, 'Chinnaswamy', 
+'Bengaluru', 70000, 12);
+insert into stadium_info values(2,502, 'wankhede', 
+'Mumbai', 70000, 10);
+
+ALTER TABLE stadium_info drop constraint cap_uni;
+
+
+
+Foreign key: 
+
+CREATE TABLE library_info(lib_id int primary key,
+lib_loc varchar(20), no_of_books int,
+vendor varchar(20));
+
+CREATE TABLE book_info(book_id int primary key,
+no_of_pages int, author_name varchar(20),
+publisher varchar(20), lib_id int,
+price int, foreign key(lib_id) references 
+library_info(lib_id));
+
+SELECT * from library_info;
+select * from book_info;
+
+insert into book_info values
+(201, 500,'Abhishek','manojbooks', 101, 800);
+
+insert into book_info values
+(202, 700,'chethan','tarunbooks', 101, 900);
+
+TASK:
+CREATE 5 TABLES with 10 columns.
+using alter apply not null, unique and check constraint for any 3 columns.
+tab1 - pk
+tab2 - pk, fk(tab1)
+tab3 - pk, fk(tab1,tab2)
+tab4 - pk,fk(tab1,tab2, tab3)
+tab5 - pk, fk(tab1,tab2,tab3,tab4)
+insert 20 data for each table.
+using alter rename column names for 4 columns.
+fetch the data using and, or, in, between,
+not in, not between , like, Group by, having,
+aggregate functions.
+
+
+CREATE TABLE Library_info (Library_ID INT PRIMARY KEY, Library_Name VARCHAR(30),
+Location VARCHAR(30), Established_Year INT, Total_Books INT, Librarian_Name VARCHAR(30),
+Contact_Number VARCHAR(15), Email VARCHAR(30), Open_Hours VARCHAR(30),
+Membership_Fee DECIMAL(10,2));
+
+INSERT INTO Library_info VALUES 
+(1, 'Bangalore Central Library', 'MG Road, Bangalore', 1950, 75000, 'Ramesh Kumar', '9876543210', 'bangalorelib@gmail.com', '9 AM - 8 PM', 100.00),
+(2, 'JP Nagar Public Library', 'JP Nagar, Bangalore', 1995, 45000, 'Priya Sharma', '9988776655', 'jpnagarlib@gmail.com', '10 AM - 7 PM', 50.00);
+
+
+CREATE TABLE Books (Book_ID INT PRIMARY KEY, Library_ID INT, Title VARCHAR(30), Author VARCHAR(30),
+Genre VARCHAR(30), Published_Year INT, ISBN VARCHAR(20), Available_Copies INT,
+Total_Copies INT, Price DECIMAL(10,2), FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID));
+
+INSERT INTO Books VALUES 
+(101, 1, 'Wings of Fire', 'A.P.J. Abdul Kalam', 'Autobiography', 1999, '9788173711466', 5, 20, 299.00),
+(102, 1, 'The White Tiger', 'Aravind Adiga', 'Fiction', 2008, '9788172237455', 8, 15, 399.00),
+(103, 2, 'India After Gandhi', 'Ramachandra Guha', 'History', 2007, '9780330505543', 10, 25, 499.00);
+
+
+CREATE TABLE Members (Member_ID INT PRIMARY KEY, Library_ID INT, Book_ID INT,
+Name VARCHAR(30), Age INT, Address VARCHAR(30), Contact_Number VARCHAR(15),
+Email VARCHAR(30), Membership_Type VARCHAR(50), Join_Date DATE,
+FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID),
+FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID));
+
+INSERT INTO Members VALUES 
+(201, 1, 101, 'Rajesh Nair', 29, 'Koramangala, Bangalore', '9876543211', 'rajesh.nair@gmail.com', 'Premium', '2022-05-15'),
+(202, 2, 103, 'Ananya Reddy', 24, 'Indiranagar, Bangalore', '9823456789', 'ananya.reddy@gmail.com', 'Standard', '2023-01-20'),
+(203, 1, 102, 'Vikram Singh', 35, 'Whitefield, Bangalore', '9900112233', 'vikram.singh@gmail.com', 'Basic', '2021-10-05');
+
+CREATE TABLE Transactions ( Transaction_ID INT PRIMARY KEY, Library_ID INT,
+Book_ID INT, Member_ID INT, Issue_Date DATE, Due_Date DATE,
+Return_Date DATE, Fine_Amount DECIMAL(10,2), Status VARCHAR(50),
+Payment_Mode VARCHAR(50), 
+FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID),
+FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID),
+FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID));
+
+INSERT INTO Transactions VALUES 
+(301, 1, 101, 201, '2024-03-10', '2024-04-10', '2024-04-05', 0.00, 'Returned', 'Online'),
+(302, 2, 103, 202, '2024-02-15', '2024-03-15', NULL, 50.00, 'Overdue', 'Cash'),
+(303, 1, 102, 203, '2024-01-20', '2024-02-20', '2024-02-18', 0.00, 'Returned', 'UPI');
+
+CREATE TABLE Staff ( Staff_ID INT PRIMARY KEY, Library_ID INT,
+Book_ID INT, Member_ID INT, Transaction_ID INT,
+Name VARCHAR(100), Role VARCHAR(50),
+Salary DECIMAL(10,2), Contact_Number VARCHAR(15),
+Email VARCHAR(100),
+FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID),
+FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID),
+FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID),
+FOREIGN KEY (Transaction_ID) REFERENCES Transactions(Transaction_ID));
+
+INSERT INTO Staff VALUES 
+(401, 1, 101, 201, 301, 'Suresh Bhat', 'Librarian', 45000.00, '9876500000', 'suresh.bhat@gmail.com'),
+(402, 2, 103, 202, 302, 'Deepa kamath', 'Assistant Librarian', 35000.00, '9898711111', 'deepa.kamath67@gmail.com'),
+(403, 1, 102, 203, 303, 'Arjun Shetty', 'Clerk', 25000.00, '9776650000', 'arjun.sr009@gmail.com');
 
 
 
