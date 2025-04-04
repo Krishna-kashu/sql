@@ -940,9 +940,7 @@ SELECT owner_name, COUNT(*) AS total_teams_owned FROM pkl_info GROUP BY owner_na
 SELECT home_city, SUM(titles_won) AS total_titles FROM pkl_info GROUP BY home_city;
 SELECT home_city, SUM(titles_won) AS total_titles FROM pkl_info GROUP BY home_city HAVING total_titles > 2;
 SELECT sponsor, COUNT(*) AS sponsored_teams FROM pkl_info GROUP BY sponsor HAVING COUNT(*) > 1;
-
 ***************************************
-
 CREATE TABLE cosmetics_info ( ID INT not null unique, product_Name VARCHAR(30) not null unique, brand VARCHAR(30) not null unique,
     product_type VARCHAR(30), price INT, rating DECIMAL(2,1), ingredients varchar(40) not null unique, 
     product_usage VARCHAR(30) not null unique, Availability VARCHAR(30));
