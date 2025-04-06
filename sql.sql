@@ -1746,7 +1746,7 @@ FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID));
 
 ALTER TABLE Members MODIFY Age INT CHECK (Age >= 5);
 ALTER TABLE Members ADD CONSTRAINT Unique_Member_Email UNIQUE (Email);
-ALTER TABLE Members ADD COLUMN Gender VARCHAR(10);
+ALTER TABLE Members MODIFY COLUMN Email VARCHAR(30) not null;
 
 INSERT INTO Members VALUES
 (201, 1, 101, 'Rajesh Nair', 29, 'Koramangala, Bangalore', '9876543211', 'rajesh.nair@gmail.com', 'Premium', '2022-05-15'),
@@ -1770,6 +1770,7 @@ INSERT INTO Members VALUES
 (219, 18, 120, 'Rahul Bhat', 32, 'Karwar Beach Road', '9856700033', 'rahul.bhat@gmail.com', 'Basic', '2023-03-09'),
 (220, 19, 115, 'Lavanya P', 28, 'Mandya Ashoka Road', '9880123412', 'lavanya.p@gmail.com', 'Standard', '2023-07-03');
 
+SELECT * FROM Members;
 ALTER TABLE Members RENAME COLUMN Membership_Type TO Plan_Type;
 ALTER TABLE Members RENAME COLUMN Contact_Number TO Phone;
 
@@ -1783,7 +1784,7 @@ FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID));
 
 ALTER TABLE Transactions MODIFY Status VARCHAR(30) DEFAULT 'Pending';
 ALTER TABLE Transactions ADD CONSTRAINT chk_Fine CHECK (Fine_Amount >= 0);
-ALTER TABLE Transactions ADD COLUMN Notes TEXT;
+ALTER TABLE Transactions MODIFY COLUMN Status VARCHAR(50) not null;
 
 INSERT INTO Transactions VALUES
 (301, 1, 101, 201, '2024-03-10', '2024-04-10', '2024-04-05', 0.00, 'Returned', 'Online'),
@@ -1810,12 +1811,11 @@ INSERT INTO Transactions VALUES
 ALTER TABLE Transactions RENAME COLUMN Fine_Amount TO Penalty;
 ALTER TABLE Transactions RENAME COLUMN Status TO Return_Status;
 
-
 CREATE TABLE Staff ( Staff_ID INT PRIMARY KEY, Library_ID INT,
 Book_ID INT, Member_ID INT, Transaction_ID INT,
-Name VARCHAR(100), Role VARCHAR(50),
+Name VARCHAR(50), Role VARCHAR(30),
 Salary DECIMAL(10,2), Contact_Number VARCHAR(15),
-Email VARCHAR(100),
+Email VARCHAR(30),
 FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID),
 FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID),
 FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID),
@@ -1823,7 +1823,7 @@ FOREIGN KEY (Transaction_ID) REFERENCES Transactions(Transaction_ID));
 
 ALTER TABLE Staff MODIFY Salary DECIMAL(12,2);
 ALTER TABLE Staff ADD CONSTRAINT Unique_Staff_Email UNIQUE (Email);
-ALTER TABLE Staff ADD COLUMN Joining_Date DATE;
+ALTER TABLE Staff ADD CONSTRAINT check_salary check(Salary>10000);
 
 INSERT INTO Staff VALUES
 (401, 1, 101, 201, 301, 'Suresh Bhat', 'Librarian', 45000.00, '9876500000', 'suresh.bhat@gmail.com'),
@@ -1850,8 +1850,6 @@ INSERT INTO Staff VALUES
 ALTER TABLE Staff RENAME COLUMN Salary TO Monthly_Salary;
 ALTER TABLE Staff RENAME COLUMN Role TO Position;
 
-
-
 SELECT * FROM Library_info WHERE Established_Year > 1980 AND Total_Books > 50000;
 SELECT * FROM Library_info WHERE Location LIKE '%Bangalore%' OR Membership_Fee < 100;
 SELECT * FROM Library_info WHERE Library_ID IN (1, 3, 5);
@@ -1863,61 +1861,64 @@ SELECT Library_ID, COUNT(*) FROM Library_info GROUP BY Open_Hours;
 SELECT Open_Hours, COUNT(*) FROM Library_info GROUP BY Open_Hours HAVING COUNT(*) > 1;
 SELECT AVG(Membership_Fee), MAX(Total_Books), MIN(Established_Year) FROM Library_info;
 
-
 SELECT * FROM Books WHERE Available_Copies > 5 AND Genre = 'Fiction';
 SELECT * FROM Books WHERE Author = 'Aravind Adiga' OR Price < 300;
 SELECT * FROM Books WHERE Book_ID IN (101, 105, 110);
-SELECT * FROM Books WHERE Published_Year BETWEEN 2000 AND 2020;
+SELECT * FROM Books WHERE Year_Published BETWEEN 2000 AND 2020;
 SELECT * FROM Books WHERE Genre NOT IN ('History', 'Autobiography');
-SELECT * FROM Books WHERE Published_Year NOT BETWEEN 1990 AND 2000;
+SELECT * FROM Books WHERE Year_Published NOT BETWEEN 1990 AND 2000;
 SELECT * FROM Books WHERE Title LIKE '%India%';
 SELECT Genre, COUNT(*) FROM Books GROUP BY Genre;
 SELECT Genre, COUNT(*) FROM Books GROUP BY Genre HAVING COUNT(*) > 1;
 SELECT SUM(Available_Copies), AVG(Price) FROM Books;
 
-
-SELECT * FROM Members WHERE Age > 25 AND Membership_Type = 'Premium';
+SELECT * FROM Members WHERE Age > 25 AND plan_Type = 'Premium';
 SELECT * FROM Members WHERE Name LIKE 'A%' OR Age < 30;
 SELECT * FROM Members WHERE Member_ID IN (201, 205, 210);
 SELECT * FROM Members WHERE Age BETWEEN 20 AND 30;
 SELECT * FROM Members WHERE Library_ID NOT IN (1, 3, 5);
 SELECT * FROM Members WHERE Age NOT BETWEEN 25 AND 35;
 SELECT * FROM Members WHERE Email LIKE '%gmail.com';
-SELECT Membership_Type, COUNT(*) FROM Members GROUP BY Membership_Type;
-SELECT Membership_Type, COUNT(*) FROM Members GROUP BY Membership_Type HAVING COUNT(*) > 2;
+SELECT plan_Type, COUNT(*) FROM Members GROUP BY Plan_Type;
+SELECT Plan_Type, COUNT(*) FROM Members GROUP BY Plan_Type HAVING COUNT(*) > 2;
 SELECT MAX(Age), MIN(Age), COUNT(*) FROM Members;
 
-
-SELECT * FROM Transactions WHERE Fine_Amount > 0 AND Status = 'Overdue';
-SELECT * FROM Transactions WHERE Payment_Mode = 'UPI' OR Status = 'Returned';
+SELECT * FROM Transactions WHERE Penalty > 0 AND Return_Status = 'Overdue';
+SELECT * FROM Transactions WHERE Payment_Mode = 'UPI' OR Return_Status = 'Returned';
 SELECT * FROM Transactions WHERE Transaction_ID IN (301, 305, 309);
 SELECT * FROM Transactions WHERE Issue_Date BETWEEN '2024-01-01' AND '2024-03-31';
 SELECT * FROM Transactions WHERE Member_ID NOT IN (201, 202);
-SELECT * FROM Transactions WHERE Fine_Amount NOT BETWEEN 10 AND 50;
-SELECT * FROM Transactions WHERE Status LIKE 'Return%';
+SELECT * FROM Transactions WHERE Penalty NOT BETWEEN 10 AND 50;
+SELECT * FROM Transactions WHERE Return_Status LIKE 'Return%';
 SELECT Payment_Mode, COUNT(*) FROM Transactions GROUP BY Payment_Mode;
-SELECT Status, COUNT(*) FROM Transactions GROUP BY Status HAVING COUNT(*) > 1;
-SELECT AVG(Fine_Amount), MAX(Fine_Amount), MIN(Fine_Amount) FROM Transactions;
+SELECT Return_Status, COUNT(*) FROM Transactions GROUP BY Return_Status HAVING COUNT(*) > 1;
+SELECT AVG(Penalty), MAX(Penalty), MIN(Penalty) FROM Transactions;
 
 
-SELECT * FROM Staff WHERE Monthly_Salary > 30000 AND Position = 'Librarian';
-SELECT * FROM Staff WHERE Name LIKE 'S%' OR Position = 'Clerk';
+SELECT * FROM Staff WHERE Salary > 30000 AND Position = 'Librarian';
+SELECT * FROM Staff WHERE Name LIKE 'S%' OR ROLe = 'Clerk';
 SELECT * FROM Staff WHERE Staff_ID IN (401, 405, 410);
-SELECT * FROM Staff WHERE Monthly_Salary BETWEEN 25000 AND 40000;
+SELECT * FROM Staff WHERE Salary BETWEEN 25000 AND 40000;
 SELECT * FROM Staff WHERE Library_ID NOT IN (1, 2, 3);
-SELECT * FROM Staff WHERE Monthly_Salary NOT BETWEEN 35000 AND 50000;
+SELECT * FROM Staff WHERE Salary NOT BETWEEN 35000 AND 50000;
 SELECT * FROM Staff WHERE Email LIKE '%gmail.com';
-SELECT Position, COUNT(*) FROM Staff GROUP BY Position;
-SELECT Position, COUNT(*) FROM Staff GROUP BY Position HAVING COUNT(*) > 2;
-SELECT AVG(Monthly_Salary), MAX(Monthly_Salary), MIN(Monthly_Salary) FROM Staff;
+SELECT Role, COUNT(*) FROM Staff GROUP BY Role;
+SELECT Role, COUNT(*) FROM Staff GROUP BY Role HAVING COUNT(*) > 2;
+SELECT AVG(Salary), MAX(Salary), MIN(Salary) FROM Staff;
 
+*****************************
 
+bank_info(bank_id, bank_name, bank_loc, ifsc_code, no_of_cust)
+(cust_id, cust_name, acc_no, bank_id,balance)
+(loan_id, loan_name, bank_id, cust_id, loan_amount)
+(insr_id, insr_type, policy_no, bank_id,cust_id,loan_id)
 
-
+SELECT * from bank_info;
+drop table bank_info;
 CREATE TABLE bank_info (
     bank_id INT,
     bank_name VARCHAR(50),
-    bank_loc VARCHAR(100),
+    bank_loc VARCHAR(50),
     ifsc_code VARCHAR(20),
     no_of_cust INT
 );
@@ -1980,7 +1981,7 @@ INSERT INTO bank_info VALUES
 (13, 'Canara Bank', 'Gulbarga', 'CAN013', 2800),
 (14, 'IDFC', 'Kolar', 'IDFC014', 1300),
 (15, 'Union Bank', 'Chikmagalur', 'UBI015', 1000);
-
+SELECT * FROM bank_info;
 
 INSERT INTO cust_info VALUES
 (101, 'Ravi Kumar', 'AX1001', 1, 15000),
@@ -1998,6 +1999,7 @@ INSERT INTO cust_info VALUES
 (113, 'Rohit Nair', 'XX1313', 13, 12500),
 (114, 'Priya Iyer', 'XX1414', 14, 10200),
 (115, 'Nikhil Rao', 'XX1515', 15, 11500);
+SELECT * from cust_info;
 
 INSERT INTO loan_info VALUES
 (201, 'Home Loan', 1, 101, 500000),
@@ -2016,6 +2018,8 @@ INSERT INTO loan_info VALUES
 (214, 'Senior Citizen Loan', 14, 114, 70000),
 (215, 'Home Renovation Loan', 15, 115, 120000);
 
+SELECT * FROM loan_info;
+
 INSERT INTO insurance_info VALUES
 (301, 'Life Insurance', 'POL1001', 1, 101, 201),
 (302, 'Vehicle Insurance', 'POL2002', 2, 102, 202),
@@ -2032,4 +2036,6 @@ INSERT INTO insurance_info VALUES
 (313, 'Pet Insurance', 'POL1313', 13, 113, 213),
 (314, 'Marine Insurance', 'POL1414', 14, 114, 214),
 (315, 'Burglary Insurance', 'POL1515', 15, 115, 215);
+
+SELECT * FROM insurance_info;
 
