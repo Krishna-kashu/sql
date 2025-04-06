@@ -1173,7 +1173,6 @@ ALTER TABLE pkl_info MODIFY column founded_year year;
 ALTER TABLE pkl_info MODIFY column founded_year year not null;
 ALTER TABLE pkl_info MODIFY column founded_year year not null  unique;
 
-
 select * from movies_info;
 ALTER TABLE movies_info MODIFY column movie_id int;
 ALTER TABLE movies_info MODIFY column movie_id int not null unique;
@@ -1674,26 +1673,70 @@ fetch the data using and, or, in, between,
 not in, not between , like, Group by, having,
 aggregate functions.
 
-
 CREATE TABLE Library_info (Library_ID INT PRIMARY KEY, Library_Name VARCHAR(30),
 Location VARCHAR(30), Established_Year INT, Total_Books INT, Librarian_Name VARCHAR(30),
 Contact_Number VARCHAR(15), Email VARCHAR(30), Open_Hours VARCHAR(30),
 Membership_Fee DECIMAL(10,2));
 
-ALTER 
+ALTER TABLE Library_info RENAME COLUMN Library_Name TO Name;
+ALTER TABLE Library_info RENAME COLUMN Contact_Number TO Phone;
+SELECT * FROM Library_info;
 
-INSERT INTO Library_info VALUES 
+INSERT INTO Library_info VALUES
 (1, 'Bangalore Central Library', 'MG Road, Bangalore', 1950, 75000, 'Ramesh Kumar', '9876543210', 'bangalorelib@gmail.com', '9 AM - 8 PM', 100.00),
-(2, 'JP Nagar Public Library', 'JP Nagar, Bangalore', 1995, 45000, 'Priya Sharma', '9988776655', 'jpnagarlib@gmail.com', '10 AM - 7 PM', 50.00);
+(2, 'JP Nagar Public Library', 'JP Nagar, Bangalore', 1995, 45000, 'Priya Sharma', '9988776655', 'jpnagarlib@gmail.com', '10 AM - 7 PM', 50.00),
+(3, 'Mysore City Library', 'Krishnaraja Boulevard, Mysore', 1965, 60000, 'Lakshmi Devi', '9845123456', 'mysorelib@gmail.com', '9 AM - 6 PM', 75.00),
+(4, 'Hubli District Library', 'Station Road, Hubli', 1980, 42000, 'Harish Patil', '9900112255', 'hublilib@gmail.com', '10 AM - 5 PM', 60.00),
+(5, 'Belgaum Town Library', 'RC Nagar, Belgaum', 1972, 37000, 'Nandini Rao', '9123456789', 'belgaumlib@gmail.com', '8 AM - 6 PM', 70.00),
+(6, 'Davangere Knowledge Center', 'PB Road, Davangere', 1990, 39000, 'Vikram Reddy', '9090909090', 'davangerelib@gmail.com', '9 AM - 7 PM', 55.00),
+(7, 'Udupi Municipal Library', 'Car Street, Udupi', 1985, 35000, 'Revathi Shetty', '9345678910', 'udupilibrary@gmail.com', '10 AM - 6 PM', 45.00),
+(8, 'Mangalore Public Library', 'Hampankatta, Mangalore', 1992, 48000, 'Anil Desai', '9785463210', 'mangalib@gmail.com', '9 AM - 8 PM', 65.00),
+(9, 'Shimoga Central Library', 'Durgigudi, Shimoga', 1988, 40000, 'Sneha Naik', '9845098450', 'shimlib@gmail.com', '9 AM - 6 PM', 60.00),
+(10, 'Tumkur District Library', 'SIT Main Road, Tumkur', 2000, 36000, 'Raghavendra H', '9876509876', 'tumlib@gmail.com', '10 AM - 5 PM', 50.00),
+(11, 'Hassan Town Library', 'BM Road, Hassan', 1997, 31000, 'Suma Acharya', '9966778899', 'hassanlib@gmail.com', '9 AM - 5 PM', 40.00),
+(12, 'Chikmagalur Library', 'IG Road, Chikmagalur', 1982, 28000, 'Kiran Gowda', '9845600123', 'chikmaglib@gmail.com', '10 AM - 6 PM', 45.00),
+(13, 'Gulbarga Knowledge Center', 'Main Bazaar, Gulbarga', 1993, 33000, 'Meghana B', '9812345678', 'gulblib@gmail.com', '9 AM - 7 PM', 55.00),
+(14, 'Bijapur Heritage Library', 'Gol Gumbaz Road, Bijapur', 1986, 29000, 'Naveen Patil', '9740012345', 'bijlib@gmail.com', '8 AM - 5 PM', 50.00),
+(15, 'Raichur Central Library', 'RTC Colony, Raichur', 1998, 27000, 'Vishal Rao', '9632587410', 'raichurlib@gmail.com', '10 AM - 6 PM', 48.00),
+(16, 'Bellary City Library', 'Station Road, Bellary', 1991, 35000, 'Shobha M', '9321784560', 'bellarylib@gmail.com', '9 AM - 5 PM', 50.00),
+(17, 'Kolar Library', 'KGF Road, Kolar', 2001, 31000, 'Jayashree N', '9988775544', 'kolarlib@gmail.com', '10 AM - 6 PM', 52.00),
+(18, 'Karwar Coastal Library', 'Tagore Road, Karwar', 1983, 22000, 'Sameer Joshi', '9876540001', 'karwarlib@gmail.com', '8 AM - 6 PM', 42.00),
+(19, 'Mandya Central Library', 'Ashoka Road, Mandya', 1996, 26000, 'Savitha C', '9800765432', 'mandyalib@gmail.com', '9 AM - 5 PM', 46.00),
+(20, 'Chitradurga District Library', 'Fort Road, Chitradurga', 1994, 30000, 'Manoj Hegde', '9876501234', 'chitralib@gmail.com', '10 AM - 5 PM', 50.00);
+
 
 CREATE TABLE Books (Book_ID INT PRIMARY KEY, Library_ID INT, Title VARCHAR(30), Author VARCHAR(30),
 Genre VARCHAR(30), Published_Year INT, ISBN VARCHAR(20), Available_Copies INT,
 Total_Copies INT, Price DECIMAL(10,2), FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID));
 
-INSERT INTO Books VALUES 
+ALTER TABLE Books MODIFY ISBN VARCHAR(30) NOT NULL;
+ALTER TABLE Books ADD CONSTRAINT check_Price CHECK (Price >= 0);
+ALTER TABLE Books modify COLUMN Title VARCHAR(50) unique;
+
+INSERT INTO Books VALUES
 (101, 1, 'Wings of Fire', 'A.P.J. Abdul Kalam', 'Autobiography', 1999, '9788173711466', 5, 20, 299.00),
 (102, 1, 'The White Tiger', 'Aravind Adiga', 'Fiction', 2008, '9788172237455', 8, 15, 399.00),
-(103, 2, 'India After Gandhi', 'Ramachandra Guha', 'History', 2007, '9780330505543', 10, 25, 499.00);
+(103, 2, 'India After Gandhi', 'Ramachandra Guha', 'History', 2007, '9780330505543', 10, 25, 499.00),
+(104, 3, 'The Discovery of India', 'Jawaharlal Nehru', 'History', 1946, '9780143031031', 12, 30, 350.00),
+(105, 3, 'The Guide', 'R.K. Narayan', 'Fiction', 1958, '9788185986073', 7, 20, 299.00),
+(106, 4, 'Bhagavad Gita', 'Vyasa', 'Philosophy', -200, '9780199538126', 15, 50, 199.00),
+(107, 5, 'Malgudi Days', 'R.K. Narayan', 'Short Stories', 1943, '9780143335412', 9, 20, 250.00),
+(108, 6, 'Playing It My Way', 'Sachin Tendulkar', 'Autobiography', 2014, '9781473605206', 6, 15, 349.00),
+(109, 7, 'Train to Pakistan', 'Khushwant Singh', 'Historical Fiction', 1956, '9780143065883', 7, 18, 275.00),
+(110, 8, 'The Palace of Illusions', 'Chitra Banerjee', 'Mythology', 2008, '9780143104377', 8, 20, 325.00),
+(111, 9, 'Samskara', 'U.R. Ananthamurthy', 'Philosophical Fiction', 1965, '9780195692406', 6, 15, 199.00),
+(112, 10, 'Ghachar Ghochar', 'Vivek Shanbhag', 'Novella', 2015, '9780143424468', 10, 25, 150.00),
+(113, 11, 'The Immortals of Meluha', 'Amish Tripathi', 'Mythological Fiction', 2010, '9789381626344', 14, 30, 299.00),
+(114, 12, 'The Secret of the Nagas', 'Amish Tripathi', 'Mythological Fiction', 2011, '9789381626375', 10, 25, 299.00),
+(115, 13, 'The Oath of the Vayuputras', 'Amish Tripathi', 'Mythological Fiction', 2013, '9789382618348', 9, 20, 299.00),
+(116, 14, 'Why I am an Atheist', 'Bhagat Singh', 'Political', 1931, '9789383723904', 8, 15, 120.00),
+(117, 15, 'Kane and Abel', 'Jeffrey Archer', 'Drama', 1979, '9781447226010', 5, 10, 349.00),
+(118, 16, '1984', 'George Orwell', 'Dystopian', 1949, '9780451524935', 6, 12, 180.00),
+(119, 17, 'Animal Farm', 'George Orwell', 'Political Satire', 1945, '9780451526342', 8, 18, 160.00),
+(120, 18, 'Totto-Chan', 'Tetsuko Kuroyanagi', 'Biography', 1981, '9780143034605', 7, 15, 200.00);
+
+ALTER TABLE Books RENAME COLUMN Published_Year TO Year_Published;
+ALTER TABLE Books RENAME COLUMN Price TO Book_Price;
 
 CREATE TABLE Members (Member_ID INT PRIMARY KEY, Library_ID INT, Book_ID INT,
 Name VARCHAR(30), Age INT, Address VARCHAR(30), Contact_Number VARCHAR(15),
@@ -1701,10 +1744,34 @@ Email VARCHAR(30), Membership_Type VARCHAR(50), Join_Date DATE,
 FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID),
 FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID));
 
-INSERT INTO Members VALUES 
+ALTER TABLE Members MODIFY Age INT CHECK (Age >= 5);
+ALTER TABLE Members ADD CONSTRAINT Unique_Member_Email UNIQUE (Email);
+ALTER TABLE Members ADD COLUMN Gender VARCHAR(10);
+
+INSERT INTO Members VALUES
 (201, 1, 101, 'Rajesh Nair', 29, 'Koramangala, Bangalore', '9876543211', 'rajesh.nair@gmail.com', 'Premium', '2022-05-15'),
 (202, 2, 103, 'Ananya Reddy', 24, 'Indiranagar, Bangalore', '9823456789', 'ananya.reddy@gmail.com', 'Standard', '2023-01-20'),
-(203, 1, 102, 'Vikram Singh', 35, 'Whitefield, Bangalore', '9900112233', 'vikram.singh@gmail.com', 'Basic', '2021-10-05');
+(203, 1, 102, 'Vikram Singh', 35, 'Whitefield, Bangalore', '9900112233', 'vikram.singh@gmail.com', 'Basic', '2021-10-05'),
+(204, 3, 104, 'Sushma Rao', 31, 'VV Mohalla, Mysore', '9988774455', 'sushma.rao@gmail.com', 'Premium', '2022-09-12'),
+(205, 4, 106, 'Ravi Desai', 28, 'Gokul Road, Hubli', '9812456723', 'ravi.desai@gmail.com', 'Standard', '2022-03-08'),
+(206, 5, 107, 'Nayana Joshi', 26, 'Shivaji Nagar, Belgaum', '9873412560', 'nayana.j@gmail.com', 'Premium', '2023-06-15'),
+(207, 6, 108, 'Manoj Hegde', 30, 'Vinoba Nagar, Davangere', '9934567890', 'manoj.hegde@gmail.com', 'Basic', '2022-01-25'),
+(208, 7, 109, 'Megha Shenoy', 27, 'Kadiyali, Udupi', '9812398456', 'megha.s@gmail.com', 'Standard', '2023-02-20'),
+(209, 8, 110, 'Yogesh Shetty', 34, 'Bejai, Mangalore', '9922456789', 'yogesh.s@gmail.com', 'Premium', '2021-12-01'),
+(210, 9, 111, 'Sharanya H', 25, 'Vinobanagar, Shimoga', '9812467810', 'sharanya.h@gmail.com', 'Basic', '2023-03-18'),
+(211, 10, 112, 'Ramesh Gowda', 38, 'Tumkur Main Road', '9909988776', 'ramesh.gowda@gmail.com', 'Premium', '2022-04-10'),
+(212, 11, 113, 'Divya A', 22, 'Salagame Road, Hassan', '9898321654', 'divya.a@gmail.com', 'Standard', '2023-05-01'),
+(213, 12, 114, 'Ajay R', 33, 'IG Road, Chikmagalur', '9911234567', 'ajay.r@gmail.com', 'Basic', '2023-08-10'),
+(214, 13, 115, 'Sneha D', 29, 'Gulbarga Main Street', '9876590088', 'sneha.d@gmail.com', 'Premium', '2021-11-15'),
+(215, 14, 116, 'Satish K', 40, 'Bijapur Fort Area', '9834567120', 'satish.k@gmail.com', 'Standard', '2023-06-28'),
+(216, 15, 117, 'Neha Jain', 23, 'RTC Colony, Raichur', '9800123456', 'neha.jain@gmail.com', 'Basic', '2022-07-14'),
+(217, 16, 118, 'Karthik R', 36, 'Ballari Station Road', '9812332211', 'karthik.r@gmail.com', 'Premium', '2023-02-05'),
+(218, 17, 119, 'Pooja Shetty', 27, 'Kolar KGF Road', '9977654321', 'pooja.s@gmail.com', 'Standard', '2022-12-20'),
+(219, 18, 120, 'Rahul Bhat', 32, 'Karwar Beach Road', '9856700033', 'rahul.bhat@gmail.com', 'Basic', '2023-03-09'),
+(220, 19, 115, 'Lavanya P', 28, 'Mandya Ashoka Road', '9880123412', 'lavanya.p@gmail.com', 'Standard', '2023-07-03');
+
+ALTER TABLE Members RENAME COLUMN Membership_Type TO Plan_Type;
+ALTER TABLE Members RENAME COLUMN Contact_Number TO Phone;
 
 CREATE TABLE Transactions ( Transaction_ID INT PRIMARY KEY, Library_ID INT,
 Book_ID INT, Member_ID INT, Issue_Date DATE, Due_Date DATE,
@@ -1714,10 +1781,35 @@ FOREIGN KEY (Library_ID) REFERENCES Library_info(Library_ID),
 FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID),
 FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID));
 
-INSERT INTO Transactions VALUES 
+ALTER TABLE Transactions MODIFY Status VARCHAR(30) DEFAULT 'Pending';
+ALTER TABLE Transactions ADD CONSTRAINT chk_Fine CHECK (Fine_Amount >= 0);
+ALTER TABLE Transactions ADD COLUMN Notes TEXT;
+
+INSERT INTO Transactions VALUES
 (301, 1, 101, 201, '2024-03-10', '2024-04-10', '2024-04-05', 0.00, 'Returned', 'Online'),
 (302, 2, 103, 202, '2024-02-15', '2024-03-15', NULL, 50.00, 'Overdue', 'Cash'),
-(303, 1, 102, 203, '2024-01-20', '2024-02-20', '2024-02-18', 0.00, 'Returned', 'UPI');
+(303, 1, 102, 203, '2024-01-20', '2024-02-20', '2024-02-18', 0.00, 'Returned', 'UPI'),
+(304, 3, 104, 204, '2024-03-05', '2024-04-05', '2024-04-03', 0.00, 'Returned', 'Online'),
+(305, 4, 106, 205, '2024-02-01', '2024-03-01', NULL, 30.00, 'Overdue', 'Cash'),
+(306, 5, 107, 206, '2024-03-15', '2024-04-15', NULL, 0.00, 'Issued', 'UPI'),
+(307, 6, 108, 207, '2024-01-10', '2024-02-10', '2024-02-09', 0.00, 'Returned', 'Online'),
+(308, 7, 109, 208, '2024-02-18', '2024-03-18', NULL, 25.00, 'Overdue', 'Cash'),
+(309, 8, 110, 209, '2024-03-22', '2024-04-22', NULL, 0.00, 'Issued', 'UPI'),
+(310, 9, 111, 210, '2024-02-05', '2024-03-05', '2024-03-03', 0.00, 'Returned', 'Online'),
+(311, 10, 112, 211, '2024-01-15', '2024-02-15', NULL, 10.00, 'Overdue', 'Cash'),
+(312, 11, 113, 212, '2024-03-01', '2024-04-01', NULL, 0.00, 'Issued', 'UPI'),
+(313, 12, 114, 213, '2024-02-12', '2024-03-12', '2024-03-10', 0.00, 'Returned', 'Online'),
+(314, 13, 115, 214, '2024-01-25', '2024-02-25', NULL, 20.00, 'Overdue', 'Cash'),
+(315, 14, 116, 215, '2024-03-05', '2024-04-05', NULL, 0.00, 'Issued', 'UPI'),
+(316, 15, 117, 216, '2024-02-10', '2024-03-10', '2024-03-09', 0.00, 'Returned', 'Online'),
+(317, 16, 118, 217, '2024-01-18', '2024-02-18', '2024-02-16', 0.00, 'Returned', 'Cash'),
+(318, 17, 119, 218, '2024-02-20', '2024-03-20', NULL, 15.00, 'Overdue', 'UPI'),
+(319, 18, 120, 219, '2024-03-12', '2024-04-12', NULL, 0.00, 'Issued', 'Online'),
+(320, 19, 115, 220, '2024-02-28', '2024-03-28', '2024-03-27', 0.00, 'Returned', 'Cash');
+
+ALTER TABLE Transactions RENAME COLUMN Fine_Amount TO Penalty;
+ALTER TABLE Transactions RENAME COLUMN Status TO Return_Status;
+
 
 CREATE TABLE Staff ( Staff_ID INT PRIMARY KEY, Library_ID INT,
 Book_ID INT, Member_ID INT, Transaction_ID INT,
@@ -1729,46 +1821,215 @@ FOREIGN KEY (Book_ID) REFERENCES Books(Book_ID),
 FOREIGN KEY (Member_ID) REFERENCES Members(Member_ID),
 FOREIGN KEY (Transaction_ID) REFERENCES Transactions(Transaction_ID));
 
-INSERT INTO Staff VALUES 
+ALTER TABLE Staff MODIFY Salary DECIMAL(12,2);
+ALTER TABLE Staff ADD CONSTRAINT Unique_Staff_Email UNIQUE (Email);
+ALTER TABLE Staff ADD COLUMN Joining_Date DATE;
+
+INSERT INTO Staff VALUES
 (401, 1, 101, 201, 301, 'Suresh Bhat', 'Librarian', 45000.00, '9876500000', 'suresh.bhat@gmail.com'),
-(402, 2, 103, 202, 302, 'Deepa kamath', 'Assistant Librarian', 35000.00, '9898711111', 'deepa.kamath67@gmail.com'),
-(403, 1, 102, 203, 303, 'Arjun Shetty', 'Clerk', 25000.00, '9776650000', 'arjun.sr009@gmail.com');
+(402, 2, 103, 202, 302, 'Deepa Kamath', 'Assistant Librarian', 35000.00, '9898711111', 'deepa.kamath67@gmail.com'),
+(403, 1, 102, 203, 303, 'Arjun Shetty', 'Clerk', 25000.00, '9776650000', 'arjun.sr009@gmail.com'),
+(404, 3, 104, 204, 304, 'Meena Rao', 'Librarian', 46000.00, '9876567890', 'meena.rao@gmail.com'),
+(405, 4, 106, 205, 305, 'Raghav Patil', 'Clerk', 24000.00, '9854671230', 'raghav.p@gmail.com'),
+(406, 5, 107, 206, 306, 'Nivedita Desai', 'Library Assistant', 32000.00, '9911223344', 'nivedita.desai@gmail.com'),
+(407, 6, 108, 207, 307, 'Jayant Hegde', 'Librarian', 47000.00, '9900112233', 'jayant.hegde@gmail.com'),
+(408, 7, 109, 208, 308, 'Pavitra Shetty', 'Library Staff', 28000.00, '9800345621', 'pavitra.s@gmail.com'),
+(409, 8, 110, 209, 309, 'Ganesh Nayak', 'Clerk', 26000.00, '9789543210', 'ganesh.nayak@gmail.com'),
+(410, 9, 111, 210, 310, 'Chaitra G', 'Librarian', 48000.00, '9876001122', 'chaitra.g@gmail.com'),
+(411, 10, 112, 211, 311, 'Vinay Kumar', 'Assistant Librarian', 33000.00, '9865432100', 'vinay.kumar@gmail.com'),
+(412, 11, 113, 212, 312, 'Ashwini R', 'Librarian', 49000.00, '9844001122', 'ashwini.r@gmail.com'),
+(413, 12, 114, 213, 313, 'Harish M', 'Library Clerk', 27000.00, '9871122334', 'harish.m@gmail.com'),
+(414, 13, 115, 214, 314, 'Bhavana K', 'Clerk', 25000.00, '9800112233', 'bhavana.k@gmail.com'),
+(415, 14, 116, 215, 315, 'Praveen Jain', 'Librarian', 46000.00, '9900887766', 'praveen.jain@gmail.com'),
+(416, 15, 117, 216, 316, 'Smitha Rao', 'Assistant Librarian', 34000.00, '9823456789', 'smitha.rao@gmail.com'),
+(417, 16, 118, 217, 317, 'Dinesh Gowda', 'Library Clerk', 28000.00, '9911002200', 'dinesh.gowda@gmail.com'),
+(418, 17, 119, 218, 318, 'Ritika Shetty', 'Librarian', 50000.00, '9800456123', 'ritika.shetty@gmail.com'),
+(419, 18, 120, 219, 319, 'Ravi Kumar', 'Assistant', 30000.00, '9778899000', 'ravi.kumar@gmail.com'),
+(420, 19, 115, 220, 320, 'Leela Deshpande', 'Librarian', 47000.00, '9887766554', 'leela.deshpande@gmail.com');
+
+ALTER TABLE Staff RENAME COLUMN Salary TO Monthly_Salary;
+ALTER TABLE Staff RENAME COLUMN Role TO Position;
+
+
+
+SELECT * FROM Library_info WHERE Established_Year > 1980 AND Total_Books > 50000;
+SELECT * FROM Library_info WHERE Location LIKE '%Bangalore%' OR Membership_Fee < 100;
+SELECT * FROM Library_info WHERE Library_ID IN (1, 3, 5);
+SELECT * FROM Library_info WHERE Established_Year BETWEEN 1980 AND 2000;
+SELECT * FROM Library_info WHERE Library_ID NOT IN (2, 4, 6);
+SELECT * FROM Library_info WHERE Established_Year NOT BETWEEN 1950 AND 1970;
+SELECT * FROM Library_info WHERE Email LIKE '%gmail.com%';
+SELECT Library_ID, COUNT(*) FROM Library_info GROUP BY Open_Hours;
+SELECT Open_Hours, COUNT(*) FROM Library_info GROUP BY Open_Hours HAVING COUNT(*) > 1;
+SELECT AVG(Membership_Fee), MAX(Total_Books), MIN(Established_Year) FROM Library_info;
+
+
+SELECT * FROM Books WHERE Available_Copies > 5 AND Genre = 'Fiction';
+SELECT * FROM Books WHERE Author = 'Aravind Adiga' OR Price < 300;
+SELECT * FROM Books WHERE Book_ID IN (101, 105, 110);
+SELECT * FROM Books WHERE Published_Year BETWEEN 2000 AND 2020;
+SELECT * FROM Books WHERE Genre NOT IN ('History', 'Autobiography');
+SELECT * FROM Books WHERE Published_Year NOT BETWEEN 1990 AND 2000;
+SELECT * FROM Books WHERE Title LIKE '%India%';
+SELECT Genre, COUNT(*) FROM Books GROUP BY Genre;
+SELECT Genre, COUNT(*) FROM Books GROUP BY Genre HAVING COUNT(*) > 1;
+SELECT SUM(Available_Copies), AVG(Price) FROM Books;
+
+
+SELECT * FROM Members WHERE Age > 25 AND Membership_Type = 'Premium';
+SELECT * FROM Members WHERE Name LIKE 'A%' OR Age < 30;
+SELECT * FROM Members WHERE Member_ID IN (201, 205, 210);
+SELECT * FROM Members WHERE Age BETWEEN 20 AND 30;
+SELECT * FROM Members WHERE Library_ID NOT IN (1, 3, 5);
+SELECT * FROM Members WHERE Age NOT BETWEEN 25 AND 35;
+SELECT * FROM Members WHERE Email LIKE '%gmail.com';
+SELECT Membership_Type, COUNT(*) FROM Members GROUP BY Membership_Type;
+SELECT Membership_Type, COUNT(*) FROM Members GROUP BY Membership_Type HAVING COUNT(*) > 2;
+SELECT MAX(Age), MIN(Age), COUNT(*) FROM Members;
+
+
+SELECT * FROM Transactions WHERE Fine_Amount > 0 AND Status = 'Overdue';
+SELECT * FROM Transactions WHERE Payment_Mode = 'UPI' OR Status = 'Returned';
+SELECT * FROM Transactions WHERE Transaction_ID IN (301, 305, 309);
+SELECT * FROM Transactions WHERE Issue_Date BETWEEN '2024-01-01' AND '2024-03-31';
+SELECT * FROM Transactions WHERE Member_ID NOT IN (201, 202);
+SELECT * FROM Transactions WHERE Fine_Amount NOT BETWEEN 10 AND 50;
+SELECT * FROM Transactions WHERE Status LIKE 'Return%';
+SELECT Payment_Mode, COUNT(*) FROM Transactions GROUP BY Payment_Mode;
+SELECT Status, COUNT(*) FROM Transactions GROUP BY Status HAVING COUNT(*) > 1;
+SELECT AVG(Fine_Amount), MAX(Fine_Amount), MIN(Fine_Amount) FROM Transactions;
+
+
+SELECT * FROM Staff WHERE Monthly_Salary > 30000 AND Position = 'Librarian';
+SELECT * FROM Staff WHERE Name LIKE 'S%' OR Position = 'Clerk';
+SELECT * FROM Staff WHERE Staff_ID IN (401, 405, 410);
+SELECT * FROM Staff WHERE Monthly_Salary BETWEEN 25000 AND 40000;
+SELECT * FROM Staff WHERE Library_ID NOT IN (1, 2, 3);
+SELECT * FROM Staff WHERE Monthly_Salary NOT BETWEEN 35000 AND 50000;
+SELECT * FROM Staff WHERE Email LIKE '%gmail.com';
+SELECT Position, COUNT(*) FROM Staff GROUP BY Position;
+SELECT Position, COUNT(*) FROM Staff GROUP BY Position HAVING COUNT(*) > 2;
+SELECT AVG(Monthly_Salary), MAX(Monthly_Salary), MIN(Monthly_Salary) FROM Staff;
 
 
 
 
+CREATE TABLE bank_info (
+    bank_id INT,
+    bank_name VARCHAR(50),
+    bank_loc VARCHAR(100),
+    ifsc_code VARCHAR(20),
+    no_of_cust INT
+);
+
+CREATE TABLE cust_info (
+    cust_id INT,
+    cust_name VARCHAR(50),
+    acc_no VARCHAR(20),
+    bank_id INT,
+    balance DECIMAL(10, 2)
+);
+
+CREATE TABLE loan_info (
+    loan_id INT,
+    loan_name VARCHAR(50),
+    bank_id INT,
+    cust_id INT,
+    loan_amount DECIMAL(10, 2)
+);
+
+CREATE TABLE insurance_info (
+    insr_id INT,
+    insr_type VARCHAR(50),
+    policy_no VARCHAR(30),
+    bank_id INT,
+    cust_id INT,
+    loan_id INT
+);
 
 
+ALTER TABLE bank_info ADD CONSTRAINT pk_bank PRIMARY KEY (bank_id);
+ALTER TABLE cust_info ADD CONSTRAINT pk_cust PRIMARY KEY (cust_id);
+ALTER TABLE loan_info ADD CONSTRAINT pk_loan PRIMARY KEY (loan_id);
+ALTER TABLE insurance_info ADD CONSTRAINT pk_insr PRIMARY KEY (insr_id);
+
+ALTER TABLE cust_info ADD CONSTRAINT fk_cust_bank FOREIGN KEY (bank_id) REFERENCES bank_info(bank_id);
+
+ALTER TABLE loan_info 
+    ADD CONSTRAINT fk_loan_bank FOREIGN KEY (bank_id) REFERENCES bank_info(bank_id),
+    ADD CONSTRAINT fk_loan_cust FOREIGN KEY (cust_id) REFERENCES cust_info(cust_id);
+
+ALTER TABLE insurance_info 
+    ADD CONSTRAINT fk_insr_bank FOREIGN KEY (bank_id) REFERENCES bank_info(bank_id),
+    ADD CONSTRAINT fk_insr_cust FOREIGN KEY (cust_id) REFERENCES cust_info(cust_id),
+    ADD CONSTRAINT fk_insr_loan FOREIGN KEY (loan_id) REFERENCES loan_info(loan_id);
+
+INSERT INTO bank_info VALUES
+(1, 'Axis Bank', 'Bangalore', 'AXIS001', 5000),
+(2, 'HDFC Bank', 'Mysore', 'HDFC002', 7000),
+(3, 'ICICI Bank', 'Mangalore', 'ICICI003', 6000),
+(4, 'SBI', 'Hubli', 'SBI004', 8000),
+(5, 'PNB', 'Belgaum', 'PNB005', 3000),
+(6, 'Yes Bank', 'Davangere', 'YES006', 4500),
+(7, 'Kotak Bank', 'Udupi', 'KOTAK007', 2000),
+(8, 'BOI', 'Shimoga', 'BOI008', 2200),
+(9, 'UCO Bank', 'Tumkur', 'UCO009', 1800),
+(10, 'DBS', 'Hassan', 'DBS010', 1600),
+(11, 'IndusInd', 'Bidar', 'IND011', 1900),
+(12, 'Federal Bank', 'Raichur', 'FED012', 2500),
+(13, 'Canara Bank', 'Gulbarga', 'CAN013', 2800),
+(14, 'IDFC', 'Kolar', 'IDFC014', 1300),
+(15, 'Union Bank', 'Chikmagalur', 'UBI015', 1000);
 
 
+INSERT INTO cust_info VALUES
+(101, 'Ravi Kumar', 'AX1001', 1, 15000),
+(102, 'Neha Sharma', 'HD2002', 2, 25000),
+(103, 'Amit Jain', 'IC3003', 3, 18000),
+(104, 'Sneha Reddy', 'SB4004', 4, 12000),
+(105, 'Manoj Verma', 'PN5005', 5, 17000),
+(106, 'Divya Mehta', 'YS6006', 6, 22000),
+(107, 'Anil Kapoor', 'XX7007', 7, 10000),
+(108, 'Ritika Sinha', 'XX8008', 8, 9000),
+(109, 'Kapil Das', 'XX9009', 9, 11000),
+(110, 'Tanvi Joshi', 'XX1010', 10, 10500),
+(111, 'Arjun Roy', 'XX1111', 11, 9500),
+(112, 'Mansi Gupta', 'XX1212', 12, 8500),
+(113, 'Rohit Nair', 'XX1313', 13, 12500),
+(114, 'Priya Iyer', 'XX1414', 14, 10200),
+(115, 'Nikhil Rao', 'XX1515', 15, 11500);
 
+INSERT INTO loan_info VALUES
+(201, 'Home Loan', 1, 101, 500000),
+(202, 'Car Loan', 2, 102, 300000),
+(203, 'Education Loan', 3, 103, 400000),
+(204, 'Business Loan', 4, 104, 700000),
+(205, 'Personal Loan', 5, 105, 250000),
+(206, 'Gold Loan', 6, 106, 150000),
+(207, 'Vehicle Loan', 7, 107, 130000),
+(208, 'Agri Loan', 8, 108, 110000),
+(209, 'Travel Loan', 9, 109, 90000),
+(210, 'Startup Loan', 10, 110, 100000),
+(211, 'Marriage Loan', 11, 111, 95000),
+(212, 'Medical Loan', 12, 112, 85000),
+(213, 'Festival Loan', 13, 113, 60000),
+(214, 'Senior Citizen Loan', 14, 114, 70000),
+(215, 'Home Renovation Loan', 15, 115, 120000);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+INSERT INTO insurance_info VALUES
+(301, 'Life Insurance', 'POL1001', 1, 101, 201),
+(302, 'Vehicle Insurance', 'POL2002', 2, 102, 202),
+(303, 'Health Insurance', 'POL3003', 3, 103, 203),
+(304, 'Travel Insurance', 'POL4004', 4, 104, 204),
+(305, 'Home Insurance', 'POL5005', 5, 105, 205),
+(306, 'Term Insurance', 'POL6006', 6, 106, 206),
+(307, 'Loan Protection', 'POL7007', 7, 107, 207),
+(308, 'Property Insurance', 'POL8008', 8, 108, 208),
+(309, 'Education Insurance', 'POL9009', 9, 109, 209),
+(310, 'Credit Insurance', 'POL1010', 10, 110, 210),
+(311, 'Crop Insurance', 'POL1111', 11, 111, 211),
+(312, 'Fire Insurance', 'POL1212', 12, 112, 212),
+(313, 'Pet Insurance', 'POL1313', 13, 113, 213),
+(314, 'Marine Insurance', 'POL1414', 14, 114, 214),
+(315, 'Burglary Insurance', 'POL1515', 15, 115, 215);
 
