@@ -1966,76 +1966,99 @@ ALTER TABLE insurance_info
     ADD CONSTRAINT fk_insr_loan FOREIGN KEY (loan_id) REFERENCES loan_info(loan_id);
 
 INSERT INTO bank_info VALUES
-(1, 'Axis Bank', 'Bangalore', 'AXIS001', 5000),
-(2, 'HDFC Bank', 'Mysore', 'HDFC002', 7000),
-(3, 'ICICI Bank', 'Mangalore', 'ICICI003', 6000),
-(4, 'SBI', 'Hubli', 'SBI004', 8000),
-(5, 'PNB', 'Belgaum', 'PNB005', 3000),
-(6, 'Yes Bank', 'Davangere', 'YES006', 4500),
-(7, 'Kotak Bank', 'Udupi', 'KOTAK007', 2000),
-(8, 'BOI', 'Shimoga', 'BOI008', 2200),
-(9, 'UCO Bank', 'Tumkur', 'UCO009', 1800),
-(10, 'DBS', 'Hassan', 'DBS010', 1600),
-(11, 'IndusInd', 'Bidar', 'IND011', 1900),
-(12, 'Federal Bank', 'Raichur', 'FED012', 2500),
-(13, 'Canara Bank', 'Gulbarga', 'CAN013', 2800),
-(14, 'IDFC', 'Kolar', 'IDFC014', 1300),
-(15, 'Union Bank', 'Chikmagalur', 'UBI015', 1000);
+(601, 'Axis Bank', 'Bangalore', 'AXIS001', 5000),
+(602, 'HDFC Bank', 'Mysore', 'HDFC002', 7000),
+(603, 'ICICI Bank', 'Mangalore', 'ICICI003', 6000),
+(604, 'SBI', 'Hubli', 'SBI004', 8000),
+(605, 'PNB', 'Belgaum', 'PNB005', 3000),
+(606, 'Yes Bank', 'Davangere', 'YES006', 4500),
+(607, 'Kotak Bank', 'Udupi', 'KOTAK007', 2000),
+(608, 'BOI', 'Shimoga', 'BOI008', 2200),
+(609, 'UCO Bank', 'Tumkur', 'UCO009', 1800),
+(610, 'DBS', 'Hassan', 'DBS010', 1600),
+(611, 'IndusInd', 'Bidar', 'IND011', 1900),
+(612, 'Federal Bank', 'Raichur', 'FED012', 2500),
+(613, 'Canara Bank', 'Gulbarga', 'CAN013', 2800),
+(614, 'IDFC', 'Kolar', 'IDFC014', 1300),
+(615, 'Union Bank', 'Chikmagalur', 'UBI015', 1000);
 SELECT * FROM bank_info;
 
 INSERT INTO cust_info VALUES
-(101, 'Ravi Kumar', 'AX1001', 1, 15000),
-(102, 'Neha Sharma', 'HD2002', 2, 25000),
-(103, 'Amit Jain', 'IC3003', 3, 18000),
-(104, 'Sneha Reddy', 'SB4004', 4, 12000),
-(105, 'Manoj Verma', 'PN5005', 5, 17000),
-(106, 'Divya Mehta', 'YS6006', 6, 22000),
-(107, 'Anil Kapoor', 'XX7007', 7, 10000),
-(108, 'Ritika Sinha', 'XX8008', 8, 9000),
-(109, 'Kapil Das', 'XX9009', 9, 11000),
-(110, 'Tanvi Joshi', 'XX1010', 10, 10500),
-(111, 'Arjun Roy', 'XX1111', 11, 9500),
-(112, 'Mansi Gupta', 'XX1212', 12, 8500),
-(113, 'Rohit Nair', 'XX1313', 13, 12500),
-(114, 'Priya Iyer', 'XX1414', 14, 10200),
-(115, 'Nikhil Rao', 'XX1515', 15, 11500);
+(101, 'Ravi Kumar', 'AX1001', 601, 15000),
+(102, 'Neha Sharma', 'HD2002', 602, 25000),
+(103, 'Amit Jain', 'IC3003', 607, 18000),
+(104, 'Sneha Reddy', 'SB4004', 604, 12000),
+(105, 'Manoj Verma', 'PN5005', 604, 17000),
+(106, 'Divya Mehta', 'YS6006', 601, 22000),
+(107, 'Anil Kapoor', 'XX7007', 607, 10000),
+(108, 'Ritika Sinha', 'XX8008', 602, 9000),
+(109, 'Kapil Das', 'XX9009', 601, 11000),
+(110, 'Tanvi Joshi', 'XX1010', 610, 10500),
+(111, 'Arjun Roy', 'XX1111', 601, 9500),
+(112, 'Mansi Gupta', 'XX1212', 601, 8500),
+(113, 'Rohit Nair', 'XX1313', 602, 12500),
+(114, 'Priya Iyer', 'XX1414', 604, 10200),
+(115, 'Nikhil Rao', 'XX1515', 602, 11500);
 SELECT * from cust_info;
 
 INSERT INTO loan_info VALUES
-(201, 'Home Loan', 1, 101, 500000),
-(202, 'Car Loan', 2, 102, 300000),
-(203, 'Education Loan', 3, 103, 400000),
-(204, 'Business Loan', 4, 104, 700000),
-(205, 'Personal Loan', 5, 105, 250000),
-(206, 'Gold Loan', 6, 106, 150000),
-(207, 'Vehicle Loan', 7, 107, 130000),
-(208, 'Agri Loan', 8, 108, 110000),
-(209, 'Travel Loan', 9, 109, 90000),
-(210, 'Startup Loan', 10, 110, 100000),
-(211, 'Marriage Loan', 11, 111, 95000),
-(212, 'Medical Loan', 12, 112, 85000),
-(213, 'Festival Loan', 13, 113, 60000),
-(214, 'Senior Citizen Loan', 14, 114, 70000),
-(215, 'Home Renovation Loan', 15, 115, 120000);
+(201, 'Home Loan', 601, 101, 500000),
+(202, 'Car Loan', 601, 102, 300000),
+(203, 'Education Loan', 604, 102, 400000),
+(204, 'Business Loan', 604, 104, 700000),
+(205, 'Personal Loan', 605, 101, 250000),
+(206, 'Gold Loan', 601, 102, 150000),
+(207, 'Vehicle Loan', 602, 101, 130000),
+(208, 'Agri Loan', 602, 105, 110000),
+(209, 'Travel Loan', 603, 105, 90000),
+(210, 'Startup Loan', 604, 106, 100000),
+(211, 'Marriage Loan', 602, 102, 95000),
+(212, 'Medical Loan', 601, 102, 85000),
+(213, 'Festival Loan', 603, 102, 60000),
+(214, 'Senior Citizen Loan', 602, 103, 70000),
+(215, 'Home Renovation Loan', 604, 101, 120000);
 
 SELECT * FROM loan_info;
 
 INSERT INTO insurance_info VALUES
-(301, 'Life Insurance', 'POL1001', 1, 101, 201),
-(302, 'Vehicle Insurance', 'POL2002', 2, 102, 202),
-(303, 'Health Insurance', 'POL3003', 3, 103, 203),
-(304, 'Travel Insurance', 'POL4004', 4, 104, 204),
-(305, 'Home Insurance', 'POL5005', 5, 105, 205),
-(306, 'Term Insurance', 'POL6006', 6, 106, 206),
-(307, 'Loan Protection', 'POL7007', 7, 107, 207),
-(308, 'Property Insurance', 'POL8008', 8, 108, 208),
-(309, 'Education Insurance', 'POL9009', 9, 109, 209),
-(310, 'Credit Insurance', 'POL1010', 10, 110, 210),
-(311, 'Crop Insurance', 'POL1111', 11, 111, 211),
-(312, 'Fire Insurance', 'POL1212', 12, 112, 212),
-(313, 'Pet Insurance', 'POL1313', 13, 113, 213),
-(314, 'Marine Insurance', 'POL1414', 14, 114, 214),
-(315, 'Burglary Insurance', 'POL1515', 15, 115, 215);
+(301, 'Life Insurance', 'POL1001', 601, 101, 201),
+(302, 'Vehicle Insurance', 'POL2002', 602, 102, 202),
+(303, 'Health Insurance', 'POL3003', 602, 103, 203),
+(304, 'Travel Insurance', 'POL4004', 601, 104, 202),
+(305, 'Home Insurance', 'POL5005', 602, 105, 201),
+(306, 'Term Insurance', 'POL6006', 601, 106, 201),
+(307, 'Loan Protection', 'POL7007', 601, 101, 206),
+(308, 'Property Insurance', 'POL8008', 602, 101, 204),
+(309, 'Education Insurance', 'POL9009', 601, 101, 203),
+(310, 'Credit Insurance', 'POL1010', 606, 102, 202),
+(311, 'Crop Insurance', 'POL1111', 601, 102, 202),
+(312, 'Fire Insurance', 'POL1212', 602, 102, 201),
+(313, 'Pet Insurance', 'POL1313', 603, 105, 201),
+(314, 'Marine Insurance', 'POL1414', 602, 104, 201),
+(315, 'Burglary Insurance', 'POL1515', 601, 105, 205);
 
 SELECT * FROM insurance_info;
+
+SELECT * FROM bank_info b inner join cust_info c on b.bank_id = c.bank_id 
+inner join loan_info l on c.cust_id = l.loan_id 
+inner join insurance_info i on l.loan_id = i.loan_id;
+
+SELECT * FROM bank_info b inner join cust_info c on b.bank_id = c.bank_id 
+inner join loan_info l on c.bank_id = l.bank_id;
+
+SELECT * FROM bank_info b inner join cust_info c on b.bank_id = c.bank_id 
+inner join loan_info l on c.cust_id = l.cust_id;
+
+SELECT * FROM bank_info b inner join cust_info c on b.bank_id = c.bank_id 
+inner join insurance_info i on c.cust_id = i.cust_id;
+
+SELECT * FROM bank_info b inner join cust_info c on b.bank_id = c.bank_id 
+inner join loan_info l on c.bank_id = l.bank_id 
+inner join insurance_info i on l.bank_id = i.bank_id;
+
+SELECT * FROM bank_info b inner join cust_info c on b.bank_id = c.bank_id 
+inner join loan_info l on c.cust_id = l.cust_id 
+inner join insurance_info i on l.loan_id = i.loan_id;
+
+
 
