@@ -2060,5 +2060,169 @@ SELECT * FROM bank_info b inner join cust_info c on b.bank_id = c.bank_id
 inner join loan_info l on c.cust_id = l.cust_id 
 inner join insurance_info i on l.loan_id = i.loan_id;
 
+/*
+CREATE 2 TABLES WITH 5 COLUMNS(student_info, college_info). 
+ADD primary key and foreign key and check constraints for 1 columns.
+INSERT 15 DATA FOR EACH TABLE.
+BY USING ALTER ADD 1 COLUMNS.
+using alter rename 3 columns.
+using alter modify 3 columns datatype.
+5 update query for new column for all rows.
+4 delete query.
+fetch the data using and, or, in, not in, between,
+not between, aggregate functions.
+joins.
+*/
+Create table College_info(College_id int, college_name varchar(30), 
+established_year int, department varchar(10), email varchar(30));
+Create table student_info(Student_id int, College_id int, Student_name varchar(20), 
+Student_branch varchar(10), Student_college varchar(20), Graduation_year int, sem int);
+
+ALTER table student_info add constraint primary key(Student_id);
+Alter table College_info add constraint primary key(college_id);
+
+ALTER table student_info add constraint chk_sem check (sem>3);
+ALTER table student_info add constraint fk_clg_id foreign key(college_id) references college_info(college_id);
+ALTER table College_info add constraint ck_est_year check (established_year>1800);
+
+select * from college_info;
+insert into College_info values (601, 'GEC clk', 2021, 'AIML', 'gecclk@gmail.com'),
+(602, 'GEC hasan', 2001, 'AIML', 'gechasan@gmail.com'),
+(603, 'ubdt davanagere', 1894, 'CSE', 'ubdt@gmail.com'),
+(604, 'GEC Ramanagar', 1994, 'EEE', 'gecramnagar@gmail.com'),
+(605, 'GEC gadag', 1987, 'ECE', 'gadaggec@gmail.com'),
+(606, 'GEC bnglr', 1953, 'Mech', 'bnglrgec@gmail.com'),
+(607, 'GEC hubli', 1978, 'EC', 'gechubli@gmail.com'),
+(608, 'KVG sulya', 1857, 'CSE', 'kvg@gmail.com'),
+(609, 'SJMIT', 1990, 'IS', 'sjmit@gmail.com'),
+(610, 'REVA university', 1999, 'AU', 'reva@gmail.com'),
+(611, 'RV university', 1994, 'CS', 'rvuni@gmail.com'),
+(612, 'Delhi university', 1956, 'ISE', 'delhiuni@gmail.com'),
+(613, 'Alwas', 1969, 'AU', 'reva@gmail.com'),
+(614, 'BMSIT', 1984, 'CS', 'rvuni@gmail.com'),
+(615, 'PES', 1962, 'ISE', 'delhiuni@gmail.com');
+select * from Student_info;
+INSERT into student_info values(101, 601,  'Krishnaveni', 'AIML', 'GEC clk', 2025, 8),
+(102, 601, 'Mahalakshmi', 'AIML', 'GEC clk', 2025, 8),
+(103, 601, 'Sonal', 'AIML', 'GEC clk', 2025, 8),
+(104, 601, 'Hemalatha', 'AIML', 'GEC clk', 2026, 6),
+(105, 602, 'Harsha', 'CS', 'GEC hasan', 2025, 8),
+(106, 601, 'Vimal', 'EEE', 'GEC clk', 2026, 6),
+(107, 609, 'Sharath', 'EC', 'SJMIT', 2026, 6),
+(108, 607, 'Bharath', 'IS', 'GEC hubli', 2026, 6),
+(109, 606, 'Avinash', 'AIDS', 'GEC bnglr', 2025, 8),
+(110, 605, 'Sarala', 'Mech', 'GEC gadag', 2025, 8),
+(111, 601, 'Lavanya', 'AU', 'GEC Ramanagar', 2025, 4),
+(112, 601, 'Rakshith', 'CSE', 'GEC clk', 2027, 4),
+(113, 601, 'Kishnan', 'ECE', 'GEC hasan', 2025, 8),
+(114, 611, 'Gowrav T', 'AIML', 'RV university', 2026, 6),
+(115, 604, 'Harshith', 'AU', 'GEC ramanagar', 2025, 8);
+
+alter table college_info add column phone_no bigint;
+alter table student_info add column mail varchar(20);
+
+select * from Student_info;
+select * from college_info;
+UPDATE college_info SET phone_no=9278949204 where College_id=601;
+UPDATE college_info SET phone_no=9276528464 where College_name='GEC hasan';
+UPDATE college_info SET phone_no=9267283904 where College_id=603;
+UPDATE college_info SET phone_no=9228497464 where College_name='GEC Ramanagar';
+UPDATE college_info SET phone_no=7893564804 where College_id=605;
+UPDATE college_info SET phone_no=9192946574 where email='bnglrgec@gmail.com';
+UPDATE college_info SET phone_no=9278567400 where College_name='GEC hubli';
+UPDATE college_info SET phone_no=9763982006 where College_id=608;
+UPDATE college_info SET phone_no=9678920023 where College_name='SJMIT';
+UPDATE college_info SET phone_no=6782047549 where email='reva@gmail.com';
+UPDATE college_info SET phone_no=7889300354 where College_name='RV university';
+UPDATE college_info SET phone_no=6778922560 where College_name='Delhi university';
+UPDATE college_info SET phone_no=6027783644 where College_id=613;
+UPDATE college_info SET phone_no=5678239833 where email='rvuni@gmail.com';
+UPDATE college_info SET phone_no=8792776454 where College_id=615;
+
+ALTER table college_info rename column email to clg_mail_id;
+ALTER table college_info rename column phone_no to clg_phone_no;
+ALTER table college_info rename column clg_mail_id to mail_id;
+
+ALTER table Student_info rename column mail to mail_id;
+ALTER table Student_info rename column student_branch to Branch;
+ALTER table Student_info rename column mail_id to student_mail_id;
+
+alter table College_info modify mail_id varchar(40);
+alter table College_info modify department varchar(5);
+alter table College_info modify college_name varchar(20);
+
+alter table student_info modify student_name varchar(15);
+alter table student_info modify student_mail_id varchar(40);
+alter table student_info modify Branch varchar(5);
+
+select * from Student_info;
+UPDATE Student_info SET student_mail_id='krishnaveni@gmail.com' where Student_id=101;
+UPDATE Student_info SET student_mail_id='mahalakshmi@gmail.com' where Student_name='mahalakshmi';
+UPDATE Student_info SET student_mail_id='sonal@gmail.com' where Student_id=103;
+UPDATE Student_info SET student_mail_id='hemalatha@gmai.com' where Student_name='hemalatha';
+UPDATE Student_info SET student_mail_id='harsha@gmail.com' where Student_id=105;
+UPDATE Student_info SET student_mail_id='vimal@gmail.com' where Student_name='Vimal';
+UPDATE Student_info SET student_mail_id='sharath@gmail.com' where Student_id=107;
+UPDATE Student_info SET student_mail_id='bharath@gmail.com' where Student_name='Bharath';
+UPDATE Student_info SET student_mail_id='avinash@gmail.com' where Student_id=109;
+UPDATE Student_info SET student_mail_id='sarala@gmail.com' where Student_name='Sarala';
+UPDATE Student_info SET student_mail_id='lavanya@gmail.com' where Student_name='lavanya';
+UPDATE Student_info SET student_mail_id='rakshith@gmail.com' where Student_name='rakshith';
+UPDATE Student_info SET student_mail_id='kishan@gmail.com' where Student_id=113;
+UPDATE Student_info SET student_mail_id='gowrav@gmail.com' where Student_name='Gowrav T';
+UPDATE Student_info SET student_mail_id='harshith@gmail.com' where Student_id=115;
+
+
+SELECT * FROM student_info WHERE sem = 6 AND Branch = 'AIML';
+SELECT * FROM student_info WHERE sem = 8 OR Graduation_year = 2026;
+SELECT * FROM college_info WHERE college_name IN ('GEC clk', 'GEC hasan');
+SELECT * FROM student_info WHERE Branch NOT IN ('AIML', 'CSE');
+SELECT * FROM student_info WHERE Graduation_year BETWEEN 2025 AND 2026;
+SELECT * FROM college_info WHERE established_year NOT BETWEEN 1900 AND 2000;
+
+SELECT College_id, COUNT(*) AS student_count 
+FROM student_info
+GROUP BY College_id;
+select * from student_info;
+SELECT AVG(Graduation_year) AS avg_grad_year FROM student_info;
+
+SELECT MAX(established_year) AS max_year, MIN(established_year) AS min_year
+FROM college_info;
+
+SELECT s.Student_name, c.college_name, s.Branch
+FROM student_info s
+INNER JOIN college_info c ON s.College_id = c.College_id;
+
+SELECT *
+FROM student_info s
+INNER JOIN college_info c ON s.College_id = c.College_id;
+
+SELECT s.Student_name, c.college_name
+FROM student_info s
+LEFT JOIN college_info c ON s.College_id = c.College_id;
+
+SELECT * FROM student_info s LEFT JOIN college_info c 
+ON s.College_id = c.College_id;
+
+SELECT s.Student_name, c.college_name
+FROM student_info s
+RIGHT JOIN college_info c ON s.College_id = c.College_id;
+
+SELECT *
+FROM student_info s RIGHT JOIN college_info c 
+ON s.College_id = c.College_id;
+
+SELECT Student_name AS name FROM student_info
+UNION
+SELECT college_name FROM college_info;
+
+SELECT Student_college AS name FROM student_info
+UNION ALL
+SELECT college_name FROM college_info;
+
+SELECT Student_college AS name FROM student_info
+UNION 
+SELECT college_name FROM college_info;
+
 
 
