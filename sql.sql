@@ -2181,7 +2181,7 @@ SELECT * FROM student_info WHERE Graduation_year BETWEEN 2025 AND 2026;
 SELECT * FROM college_info WHERE established_year NOT BETWEEN 1900 AND 2000;
 
 SELECT College_id, COUNT(*) AS student_count 
-FROM student_info
+FROM student_info 
 GROUP BY College_id;
 select * from student_info;
 SELECT AVG(Graduation_year) AS avg_grad_year FROM student_info;
@@ -2223,6 +2223,5 @@ SELECT college_name FROM college_info;
 SELECT Student_college AS name FROM student_info
 UNION 
 SELECT college_name FROM college_info;
-
 
 
