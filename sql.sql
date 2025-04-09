@@ -2172,6 +2172,15 @@ UPDATE Student_info SET student_mail_id='kishan@gmail.com' where Student_id=113;
 UPDATE Student_info SET student_mail_id='gowrav@gmail.com' where Student_name='Gowrav T';
 UPDATE Student_info SET student_mail_id='harshith@gmail.com' where Student_id=115;
 
+DELETE from Student_info where student_mail_id='harshith@gmail.com';
+DELETE from Student_info where student_name='hemalatha';
+DELETE from Student_info where student_id=103;
+DELETE from Student_info where student_mail_id='mahalakshmi@gmail.com';
+
+DELETE from college_info where college_name='Alwas';
+DELETE from college_info where college_name='Delhi university';
+DELETE from college_info where clg_phone_no=8792776454;
+DELETE from college_info where mail_id='reva@gmail.com';
 
 SELECT * FROM student_info WHERE sem = 6 AND Branch = 'AIML';
 SELECT * FROM student_info WHERE sem = 8 OR Graduation_year = 2026;
